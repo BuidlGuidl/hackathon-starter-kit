@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import SubmitButton from "./SubmitButton";
-import useSWRMutation from "swr/mutation";
+import { useMutation } from "@tanstack/react-query";
 import { useAccount, useSignTypedData } from "wagmi";
 import { EIP_712_DOMAIN, EIP_712_TYPES__SUBMISSION } from "~~/utils/eip712";
+import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
-import { postMutationFetcher } from "~~/utils/swr";
 
 // TODO: move to a shared location
 type ReqBody = {
@@ -25,7 +25,9 @@ const Form = () => {
   const [descriptionLength, setDescriptionLength] = useState(0);
   const { signTypedDataAsync } = useSignTypedData();
   const router = useRouter();
-  const { trigger: postNewGrant } = useSWRMutation("/api/submissions", postMutationFetcher<ReqBody>);
+  const { mutateAsync: postNewSubmission } = useMutation({
+    mutationFn: (newSubmission: ReqBody) => postMutationFetcher("/api/submissions", { body: newSubmission }),
+  });
 
   const clientFormAction = async (formData: FormData) => {
     if (!connectedAddress) {
@@ -53,7 +55,7 @@ const Form = () => {
         },
       });
 
-      await postNewGrant({ title, description, linkToRepository, signature, signer: connectedAddress });
+      await postNewSubmission({ title, description, linkToRepository, signature, signer: connectedAddress });
 
       notification.success("Proposal submitted successfully!");
       router.push("/");

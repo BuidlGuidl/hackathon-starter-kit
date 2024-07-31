@@ -35,7 +35,6 @@
     "react-copy-to-clipboard": "~5.1.0",
     "react-dom": "~18.2.0",
     "react-hot-toast": "~2.4.0",
-    "swr": "^2.2.5",
     "use-debounce": "~8.0.4",
     "usehooks-ts": "2.13.0",
     "viem": "2.17.4",
