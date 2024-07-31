@@ -6,6 +6,7 @@ export const submissions = pgTable("submissions", {
   id: serial("id").primaryKey(),
   title: varchar("name", { length: 256 }),
   description: text("description"),
+  linkToRepository: varchar("link_to_repository", { length: 256 }),
   submissionTimestamp: timestamp("submission_timestamp").default(sql`now()`),
   builder: varchar("builder_id", { length: 256 }).references(() => builders.id),
 });

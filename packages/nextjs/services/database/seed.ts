@@ -31,11 +31,13 @@ async function seed() {
       {
         title: "First submission",
         description: "This is the first submission",
+        linkToRepository: "https://github.com/BuidlGuidl/grants.buidlguidl.com",
         builder: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       },
       {
         title: "Second submission",
         description: "This is the second submission",
+        linkToRepository: "https://github.com/BuidlGuidl/extensions-hackathon",
         builder: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       },
     ])
