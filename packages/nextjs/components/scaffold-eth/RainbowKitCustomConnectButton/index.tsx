@@ -32,7 +32,7 @@ export const RainbowKitCustomConnectButton = ({ fullWidth }: { fullWidth?: boole
               if (!connected) {
                 return (
                   <button
-                    className={`btn btn-primary btn-sm${fullWidth && " w-full"}`}
+                    className={`btn btn-primary btn-sm${fullWidth ? " w-full" : ""}`}
                     onClick={openConnectModal}
                     type="button"
                   >
