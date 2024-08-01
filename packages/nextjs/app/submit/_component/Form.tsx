@@ -5,18 +5,10 @@ import { useRouter } from "next/navigation";
 import SubmitButton from "./SubmitButton";
 import { useMutation } from "@tanstack/react-query";
 import { useAccount, useSignTypedData } from "wagmi";
+import { CreateNewSubmissionBody } from "~~/app/api/submissions/route";
 import { EIP_712_DOMAIN, EIP_712_TYPES__SUBMISSION } from "~~/utils/eip712";
 import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
-
-// TODO: move to a shared location
-type ReqBody = {
-  title?: string;
-  description?: string;
-  linkToRepository?: string;
-  signature?: `0x${string}`;
-  signer?: string;
-};
 
 const MAX_DESCRIPTION_LENGTH = 750;
 
@@ -26,7 +18,8 @@ const Form = () => {
   const { signTypedDataAsync } = useSignTypedData();
   const router = useRouter();
   const { mutateAsync: postNewSubmission } = useMutation({
-    mutationFn: (newSubmission: ReqBody) => postMutationFetcher("/api/submissions", { body: newSubmission }),
+    mutationFn: (newSubmission: CreateNewSubmissionBody) =>
+      postMutationFetcher("/api/submissions", { body: newSubmission }),
   });
 
   const clientFormAction = async (formData: FormData) => {

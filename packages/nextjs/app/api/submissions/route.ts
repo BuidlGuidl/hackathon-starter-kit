@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { recoverTypedDataAddress } from "viem";
 import { createBuilder, getBuilderById } from "~~/services/database/repositories/builders";
 import { createSubmission, getAllSubmissions } from "~~/services/database/repositories/submissions";
+import { SubmissionInsert } from "~~/services/database/repositories/submissions";
 import { EIP_712_DOMAIN, EIP_712_TYPES__SUBMISSION } from "~~/utils/eip712";
 
 export async function GET() {
@@ -14,17 +15,11 @@ export async function GET() {
   }
 }
 
-type ReqBody = {
-  title?: string;
-  description?: string;
-  linkToRepository?: string;
-  signature?: `0x${string}`;
-  signer?: string;
-};
+export type CreateNewSubmissionBody = SubmissionInsert & { signature: `0x${string}`; signer: string };
 
 export async function POST(req: Request) {
   try {
-    const { title, description, linkToRepository, signature, signer } = (await req.json()) as ReqBody;
+    const { title, description, linkToRepository, signature, signer } = (await req.json()) as CreateNewSubmissionBody;
 
     if (
       !title ||
