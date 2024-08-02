@@ -13,5 +13,5 @@ export async function getBuilderById(id: string) {
 }
 
 export async function createBuilder(builder: BuilderInsert) {
-  return await db.insert(builders).values(builder);
+  return await db.insert(builders).values(builder).returning({ id: builders.id, role: builders.role });
 }

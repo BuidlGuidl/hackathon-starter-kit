@@ -4,9 +4,10 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BugAntIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
+import { useAuthSession } from "~~/hooks/useAuthSession";
 
 type HeaderMenuLink = {
   label: string;
@@ -24,6 +25,15 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/submit",
   },
   {
+    label: "Admin",
+    href: "/admin",
+    icon: <LockClosedIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Siwe",
+    href: "/siwe",
+  },
+  {
     label: "Debug Contracts",
     href: "/debug",
     icon: <BugAntIcon className="h-4 w-4" />,
@@ -32,10 +42,23 @@ export const menuLinks: HeaderMenuLink[] = [
 
 export const HeaderMenuLinks = () => {
   const pathname = usePathname();
+  const { isAdmin, data: session, isAuthenticated } = useAuthSession();
 
   return (
     <>
       {menuLinks.map(({ label, href, icon }) => {
+        if (!session && label !== "Siwe") {
+          return null;
+        }
+
+        if (isAuthenticated && label === "Siwe") {
+          return null;
+        }
+
+        if (label === "Admin" && !isAdmin) {
+          return null;
+        }
+
         const isActive = pathname === href;
         return (
           <li key={href}>
