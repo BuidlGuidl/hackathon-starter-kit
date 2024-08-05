@@ -16,7 +16,9 @@ async function seed() {
   await client.connect();
   const db = drizzle(client, { schema });
 
+  await db.delete(submissions).execute();
   await db.delete(builders).execute();
+
   db.insert(builders)
     .values([
       { id: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", role: "admin" },
@@ -24,7 +26,6 @@ async function seed() {
     ])
     .execute();
 
-  await db.delete(submissions).execute();
   await db
     .insert(submissions)
     .values([
