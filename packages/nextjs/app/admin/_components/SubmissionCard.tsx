@@ -73,9 +73,9 @@ export const SubmissionCard = ({
             ))}
             <div className="card bg-base-200 text-base-content mb-4">
               <div className="card-body">
-                <form action={clientFormAction} className="card-body space-y-3">
+                <form action={clientFormAction} className="card-body space-y-3 p-0">
                   <textarea
-                    className="p-2"
+                    className="p-2 h-32"
                     value={newComment}
                     name="comment"
                     onChange={field => {
