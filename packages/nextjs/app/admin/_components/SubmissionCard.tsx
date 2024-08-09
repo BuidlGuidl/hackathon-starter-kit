@@ -7,6 +7,16 @@ import { Submission } from "~~/services/database/repositories/submissions";
 import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
 
+function getFormattedDateTime(date: Date) {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${month}/${day}/${year} ${hours}:${minutes}`;
+}
+
 export const SubmissionCard = ({
   submission,
   refetch,
@@ -67,7 +77,7 @@ export const SubmissionCard = ({
                 <div className="card-body">
                   <Address address={comment.builder} />
                   <p className="m-1">{comment.comment}</p>
-                  <p>{comment.createdAt?.toLocaleString()}</p>
+                  <p>{comment.createdAt ? getFormattedDateTime(new Date(comment.createdAt)) : "-"}</p>
                 </div>
               </div>
             ))}
