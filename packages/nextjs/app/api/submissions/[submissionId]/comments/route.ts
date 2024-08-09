@@ -7,7 +7,7 @@ export async function POST(req: NextRequest, { params }: { params: { submissionI
   try {
     const session = await getServerSession(authOptions);
 
-    if (session?.user.role !== "admin" || !session.user.address) {
+    if (session?.user.role !== "admin") {
       return NextResponse.json({ error: "Only admins can add comments" }, { status: 401 });
     }
     const { submissionId } = params;
@@ -18,7 +18,9 @@ export async function POST(req: NextRequest, { params }: { params: { submissionI
       return NextResponse.json({ error: "Invalid comment submitted" }, { status: 400 });
     }
 
-    console.log("Creating comment", comment, submissionId, session.user.address);
+    if (!session.user.address) {
+      return NextResponse.json({ error: "Invalid admin address" }, { status: 400 });
+    }
 
     const newComment = await createComment({
       comment,

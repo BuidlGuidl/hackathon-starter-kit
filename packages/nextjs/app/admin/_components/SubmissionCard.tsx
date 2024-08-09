@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { UseQueryResult, useMutation } from "@tanstack/react-query";
 import { Address } from "~~/components/scaffold-eth";
 import { Submission } from "~~/services/database/repositories/submissions";
 import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
 
-export const SubmissionCard = ({ submission, refetch }: { submission: Submission; refetch: any }) => {
+export const SubmissionCard = ({
+  submission,
+  refetch,
+}: {
+  submission: Submission;
+  refetch: UseQueryResult["refetch"];
+}) => {
   const [newComment, setNewComment] = useState("");
   const { mutateAsync: postNewComment } = useMutation({
     mutationFn: (newComment: { comment: string }) =>
@@ -56,16 +62,15 @@ export const SubmissionCard = ({ submission, refetch }: { submission: Submission
           <input type="checkbox" />
           <div className="collapse-title text-xl font-medium">{submission.comments.length} comments</div>
           <div className="collapse-content">
-            {submission.comments &&
-              submission.comments.map(comment => (
-                <div key={comment.id} className="card bg-base-200 text-base-content mb-4">
-                  <div className="card-body">
-                    <Address address={comment.builder} />
-                    <p className="m-1">{comment.comment}</p>
-                    <p>{comment.createdAt?.toLocaleString()}</p>
-                  </div>
+            {submission.comments?.map(comment => (
+              <div key={comment.id} className="card bg-base-200 text-base-content mb-4">
+                <div className="card-body">
+                  <Address address={comment.builder} />
+                  <p className="m-1">{comment.comment}</p>
+                  <p>{comment.createdAt?.toLocaleString()}</p>
                 </div>
-              ))}
+              </div>
+            ))}
             <div className="card bg-base-200 text-base-content mb-4">
               <div className="card-body">
                 <form action={clientFormAction} className="card-body space-y-3">

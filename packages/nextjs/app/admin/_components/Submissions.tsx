@@ -31,10 +31,9 @@ export const Submissions = () => {
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-10 space-y-4">
-        {submissions &&
-          submissions.map((submission: Submission) => {
-            return <SubmissionCard key={submission.id} submission={submission} refetch={refetch} />;
-          })}
+        {submissions?.map((submission: Submission) => {
+          return <SubmissionCard key={submission.id} submission={submission} refetch={refetch} />;
+        })}
       </div>
     </>
   );
