@@ -1,12 +1,19 @@
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 import { recoverTypedDataAddress } from "viem";
 import { createBuilder, getBuilderById } from "~~/services/database/repositories/builders";
 import { createSubmission, getAllSubmissions } from "~~/services/database/repositories/submissions";
 import { SubmissionInsert } from "~~/services/database/repositories/submissions";
+import { authOptions } from "~~/utils/auth";
 import { EIP_712_DOMAIN, EIP_712_TYPES__SUBMISSION } from "~~/utils/eip712";
 
 export async function GET() {
   try {
+    const session = await getServerSession(authOptions);
+
+    if (session?.user.role !== "admin") {
+      return NextResponse.json({ error: "Only admins can get all the submissions" }, { status: 401 });
+    }
     const grants = await getAllSubmissions();
     return NextResponse.json(grants);
   } catch (error) {
@@ -15,18 +22,18 @@ export async function GET() {
   }
 }
 
-export type CreateNewSubmissionBody = SubmissionInsert & { signature: `0x${string}`; signer: string };
+export type CreateNewSubmissionBody = SubmissionInsert & { signature: `0x${string}` };
 
 export async function POST(req: Request) {
   try {
-    const { title, description, linkToRepository, signature, signer } = (await req.json()) as CreateNewSubmissionBody;
+    const { title, description, linkToRepository, signature, builder } = (await req.json()) as CreateNewSubmissionBody;
 
     if (
       !title ||
       !description ||
       !linkToRepository ||
       !signature ||
-      !signer ||
+      !builder ||
       description.length > 750 ||
       title.length > 75
     ) {
@@ -41,21 +48,21 @@ export async function POST(req: Request) {
       signature: signature,
     });
 
-    if (recoveredAddress !== signer) {
-      return NextResponse.json({ error: "Recovered address did not match signer" }, { status: 401 });
+    if (recoveredAddress !== builder) {
+      return NextResponse.json({ error: "Recovered address did not match builder" }, { status: 401 });
     }
 
-    const builder = await getBuilderById(signer);
+    const builderData = await getBuilderById(builder);
 
-    if (!builder) {
-      await createBuilder({ id: signer, role: "user" });
+    if (!builderData) {
+      await createBuilder({ id: builder, role: "user" });
     }
 
     const submission = await createSubmission({
-      title: title,
-      description: description,
-      linkToRepository: linkToRepository,
-      builder: signer,
+      title,
+      description,
+      linkToRepository,
+      builder,
     });
 
     return NextResponse.json({ submission }, { status: 201 });

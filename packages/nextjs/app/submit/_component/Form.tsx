@@ -48,7 +48,7 @@ const Form = () => {
         },
       });
 
-      await postNewSubmission({ title, description, linkToRepository, signature, signer: connectedAddress });
+      await postNewSubmission({ title, description, linkToRepository, signature, builder: connectedAddress });
 
       notification.success("Extension submitted successfully!");
       router.push("/");

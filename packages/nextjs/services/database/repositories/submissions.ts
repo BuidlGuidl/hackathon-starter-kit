@@ -1,11 +1,13 @@
-import { InferInsertModel } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { db } from "~~/services/database/config/postgresClient";
-import { submissions } from "~~/services/database/config/schema";
+import { comments, submissions } from "~~/services/database/config/schema";
 
 export type SubmissionInsert = InferInsertModel<typeof submissions>;
+type Comment = InferInsertModel<typeof comments>;
+export type Submission = InferSelectModel<typeof submissions> & { comments: Comment[] };
 
 export async function getAllSubmissions() {
-  return await db.select().from(submissions);
+  return await db.query.submissions.findMany({ with: { comments: true } });
 }
 
 export async function createSubmission(submission: SubmissionInsert) {
