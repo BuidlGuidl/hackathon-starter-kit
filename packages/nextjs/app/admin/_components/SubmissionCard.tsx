@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { UseQueryResult, useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import { Address } from "~~/components/scaffold-eth";
 import { Submission } from "~~/services/database/repositories/submissions";
 import { postMutationFetcher } from "~~/utils/react-query";
@@ -17,18 +18,13 @@ function getFormattedDateTime(date: Date) {
   return `${month}/${day}/${year} ${hours}:${minutes}`;
 }
 
-export const SubmissionCard = ({
-  submission,
-  refetch,
-}: {
-  submission: Submission;
-  refetch: UseQueryResult["refetch"];
-}) => {
+export const SubmissionCard = ({ submission }: { submission: Submission }) => {
   const [newComment, setNewComment] = useState("");
   const { mutateAsync: postNewComment } = useMutation({
     mutationFn: (newComment: { comment: string }) =>
       postMutationFetcher(`/api/submissions/${submission.id}/comments`, { body: newComment }),
   });
+  const { refresh } = useRouter();
 
   const clientFormAction = async (formData: FormData) => {
     try {
@@ -47,7 +43,7 @@ export const SubmissionCard = ({
 
       notification.success("Comment submitted successfully!");
       setNewComment("");
-      refetch();
+      refresh();
     } catch (error: any) {
       if (error instanceof Error) {
         notification.error(error.message);

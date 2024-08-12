@@ -1,38 +1,14 @@
-"use client";
-
 import { SubmissionCard } from "./SubmissionCard";
-import { useQuery } from "@tanstack/react-query";
-import { Submission } from "~~/services/database/repositories/submissions";
-import { fetcher } from "~~/utils/react-query";
+import { getAllSubmissions } from "~~/services/database/repositories/submissions";
 
-export const Submissions = () => {
-  const {
-    data: submissions,
-    isPending,
-    isError,
-    refetch,
-  } = useQuery({
-    queryKey: ["submissions"],
-    queryFn: () => fetcher("/api/submissions"),
-  });
-
-  if (isPending) {
-    return (
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <span className="loading loading-dots loading-lg"></span>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return <div>Error loading submissions</div>;
-  }
+export const Submissions = async () => {
+  const submissions = await getAllSubmissions();
 
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-10 space-y-4">
-        {submissions?.map((submission: Submission) => {
-          return <SubmissionCard key={submission.id} submission={submission} refetch={refetch} />;
+        {submissions?.map(submission => {
+          return <SubmissionCard key={submission.id} submission={submission} />;
         })}
       </div>
     </>
