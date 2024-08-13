@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { integer, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { integer, pgTable, primaryKey, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const builders = pgTable("builders", {
   id: varchar("id", { length: 256 }).primaryKey(),
@@ -33,10 +33,37 @@ export const comments = pgTable("comments", {
     .notNull(),
 });
 
+export const votes = pgTable(
+  "votes",
+  {
+    submission: integer("submission_id")
+      .references(() => submissions.id)
+      .notNull(),
+    builder: varchar("builder_id", { length: 256 })
+      .references(() => builders.id)
+      .notNull(),
+    score: integer("score").notNull(),
+    createdAt: timestamp("created_at")
+      .default(sql`now()`)
+      .notNull(),
+  },
+  table => {
+    return {
+      pk: primaryKey({ columns: [table.submission, table.builder] }),
+    };
+  },
+);
+
 export const submissionsRelations = relations(submissions, ({ many }) => ({
   comments: many(comments),
+  votes: many(votes),
 }));
 
 export const commentsRelations = relations(comments, ({ one }) => ({
   submission: one(submissions, { fields: [comments.submission], references: [submissions.id] }),
+}));
+
+export const votesRelations = relations(votes, ({ one }) => ({
+  submission: one(submissions, { fields: [votes.submission], references: [submissions.id] }),
+  builder: one(builders, { fields: [votes.builder], references: [builders.id] }),
 }));

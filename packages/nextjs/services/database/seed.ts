@@ -1,4 +1,4 @@
-import { builders, comments, submissions } from "./config/schema";
+import { builders, comments, submissions, votes } from "./config/schema";
 import * as schema from "./config/schema";
 import * as dotenv from "dotenv";
 import { drizzle } from "drizzle-orm/node-postgres";
@@ -17,6 +17,7 @@ async function seed() {
   const db = drizzle(client, { schema });
 
   await db.delete(comments).execute();
+  await db.delete(votes).execute();
   await db.delete(submissions).execute();
   await db.delete(builders).execute();
 
@@ -56,6 +57,19 @@ async function seed() {
       builder: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       comment: "This is another comment",
       submission: newSubmissions[0].insertedId,
+    },
+  ]);
+
+  await db.insert(votes).values([
+    {
+      builder: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      submission: newSubmissions[0].insertedId,
+      score: 9,
+    },
+    {
+      builder: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      submission: newSubmissions[1].insertedId,
+      score: 7,
     },
   ]);
 
