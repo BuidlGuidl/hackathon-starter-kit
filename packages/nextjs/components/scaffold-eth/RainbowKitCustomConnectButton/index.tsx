@@ -2,7 +2,6 @@
 
 // @refresh reset
 import { useEffect } from "react";
-import { Balance } from "../Balance";
 import { AddressInfoDropdown } from "./AddressInfoDropdown";
 import { AddressQRCodeModal } from "./AddressQRCodeModal";
 import { WrongNetworkDropdown } from "./WrongNetworkDropdown";
@@ -10,7 +9,6 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { signOut } from "next-auth/react";
 import { Address } from "viem";
 import { useAccount } from "wagmi";
-import { useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { useAuthSession } from "~~/hooks/useAuthSession";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
@@ -19,7 +17,6 @@ import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
  * Custom Wagmi Connect Button (watch balance + custom design)
  */
 export const RainbowKitCustomConnectButton = ({ fullWidth }: { fullWidth?: boolean }) => {
-  const networkColor = useNetworkColor();
   const { targetNetwork } = useTargetNetwork();
   const { address, isConnected } = useAccount();
   const { address: sessionAddress } = useAuthSession();
@@ -44,11 +41,11 @@ export const RainbowKitCustomConnectButton = ({ fullWidth }: { fullWidth?: boole
               if (!connected) {
                 return (
                   <button
-                    className={`btn btn-primary btn-sm${fullWidth ? " w-full" : ""}`}
+                    className={`btn btn-outline text-lg font-normal${fullWidth ? " w-full" : ""}`}
                     onClick={openConnectModal}
                     type="button"
                   >
-                    Connect Wallet
+                    Connect
                   </button>
                 );
               }
@@ -59,12 +56,6 @@ export const RainbowKitCustomConnectButton = ({ fullWidth }: { fullWidth?: boole
 
               return (
                 <>
-                  <div className="flex flex-col items-center mr-1">
-                    <Balance address={account.address as Address} className="min-h-0 h-auto" />
-                    <span className="text-xs" style={{ color: networkColor }}>
-                      {chain.name}
-                    </span>
-                  </div>
                   <AddressInfoDropdown
                     address={account.address as Address}
                     displayName={account.displayName}
