@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useAuthSession } from "~~/hooks/useAuthSession";
@@ -12,13 +11,10 @@ export default function Siwe() {
   const { openConnectModal } = useConnectModal();
   const { handleLogin } = useHandleLogin();
   const { isAuthenticated } = useAuthSession();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/");
-    }
-  }, [router, isAuthenticated]);
+  if (isAuthenticated) {
+    return redirect("/");
+  }
 
   return (
     <button
