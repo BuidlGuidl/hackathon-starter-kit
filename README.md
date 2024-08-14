@@ -1,4 +1,4 @@
-## ENS PG
+## Extensions Hackathon Website
 
 ## Requirements
 
