@@ -10,7 +10,7 @@ export const Hero = () => {
         <div className="px-4 py-2 mt-2 bg-accent">Onchain</div>
       </div>
       <div className="w-1/2 h-full relative">
-        <Image src="/hero-image.png" alt="Hero" layout="fill" objectFit="cover" />
+        <Image src="/hero-image.png" alt="Hero" fill={true} style={{ objectFit: "cover" }} />
       </div>
     </div>
   );
