@@ -14,7 +14,7 @@ export const Hero = () => {
         <div className="px-4 py-2 mt-2 bg-accent text-base md:text-xl">Onchain</div>
       </div>
       <div className="h-36 mt-4 md:mt-0 md:w-1/2 md:h-full relative">
-        <Image src="/hero-image.png" alt="Hero" fill={true} style={{ objectFit: "cover" }} />
+        <Image src="/hero-image.jpg" alt="Hero" fill={true} style={{ objectFit: "cover" }} />
       </div>
     </div>
   );
