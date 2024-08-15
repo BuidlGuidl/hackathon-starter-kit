@@ -1,13 +1,15 @@
+"use client";
+
 import type { NextPage } from "next";
-import { Faq } from "~~/components/extensions-hackathon/Faq";
+import { Faq, Hero, PrizeInfo } from "~~/components/extensions-hackathon/";
 
 const Home: NextPage = () => {
   return (
-    <>
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <Faq />
-      </div>
-    </>
+    <div className="flex flex-col items-center mx-10">
+      <Hero />
+      <PrizeInfo />
+      <Faq />
+    </div>
   );
 };
 
