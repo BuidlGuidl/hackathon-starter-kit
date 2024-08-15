@@ -16,7 +16,7 @@ export default function Siwe() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push("/");
+      router.push("/admin");
     }
   }, [router, isAuthenticated]);
 
