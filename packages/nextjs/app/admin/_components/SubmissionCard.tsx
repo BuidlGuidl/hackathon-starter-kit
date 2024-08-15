@@ -62,14 +62,14 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
 
   const vote = async (newScore: number) => {
     try {
-      if (!newScore || newScore < 1 || newScore > 10) {
+      if (newScore < 0 || newScore > 10) {
         notification.error("Wrong score");
         return;
       }
 
-      await postNewVote({ score: newScore });
+      const result = await postNewVote({ score: newScore });
 
-      notification.success("Voted!");
+      notification.success(result.message);
       refresh();
     } catch (error: any) {
       if (error instanceof Error) {
@@ -97,7 +97,17 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
         <div className="card-body">
           <div className="flex mb-4 items-center">
             <div className="rating">
-              <input type="radio" name={`rating_${submission.id}`} className="rating-hidden" checked={score === 0} />
+              <label className="cursor-pointer" htmlFor={`rating_${submission.id}_0`}>
+                x
+              </label>
+              <input
+                type="radio"
+                id={`rating_${submission.id}_0`}
+                name={`rating_${submission.id}`}
+                className="rating-hidden"
+                checked={score === 0}
+                onChange={() => vote(0)}
+              />
               {[...Array(10)].map((_e, i) => (
                 <input
                   type="radio"
@@ -106,7 +116,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
                   title={(i + 1).toString()}
                   checked={score === i + 1}
                   key={i}
-                  onClick={() => vote(i + 1)}
+                  onChange={() => vote(i + 1)}
                 />
               ))}
             </div>

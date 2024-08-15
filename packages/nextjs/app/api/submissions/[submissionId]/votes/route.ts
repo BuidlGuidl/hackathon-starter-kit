@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { createOrUpdateVote } from "~~/services/database/repositories/votes";
+import { createOrUpdateVote, deleteVote } from "~~/services/database/repositories/votes";
 import { authOptions } from "~~/utils/auth";
 
 export async function POST(req: NextRequest, { params }: { params: { submissionId: number } }) {
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest, { params }: { params: { submissionI
 
     const { score } = (await req.json()) as { score: string };
 
-    if (!score || parseInt(score) < 1 || parseInt(score) > 10) {
+    if (parseInt(score) < 0 || parseInt(score) > 10) {
       return NextResponse.json({ error: "Invalid score submitted" }, { status: 400 });
     }
 
@@ -22,13 +22,21 @@ export async function POST(req: NextRequest, { params }: { params: { submissionI
       return NextResponse.json({ error: "Invalid admin address" }, { status: 400 });
     }
 
-    const newComment = await createOrUpdateVote({
-      score: parseInt(score),
-      submission: submissionId,
-      builder: session.user.address,
-    });
+    const builderId = session.user.address;
 
-    return NextResponse.json({ newComment }, { status: 201 });
+    if (parseInt(score) === 0) {
+      await deleteVote(builderId, submissionId);
+
+      return NextResponse.json({ message: "Vote deleted!" }, { status: 200 });
+    } else {
+      const vote = await createOrUpdateVote({
+        score: parseInt(score),
+        submission: submissionId,
+        builder: builderId,
+      });
+
+      return NextResponse.json({ vote, message: "Voted!" }, { status: 201 });
+    }
   } catch (e) {
     console.error(e);
     return NextResponse.json({ error: "Error processing form" }, { status: 500 });

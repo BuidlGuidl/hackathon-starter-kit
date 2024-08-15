@@ -21,3 +21,7 @@ export async function createOrUpdateVote(vote: VoteInsert) {
     return await db.insert(votes).values(vote);
   }
 }
+
+export async function deleteVote(builderId: string, submissionId: number) {
+  return await db.delete(votes).where(and(eq(votes.builder, builderId), eq(votes.submission, submissionId)));
+}
