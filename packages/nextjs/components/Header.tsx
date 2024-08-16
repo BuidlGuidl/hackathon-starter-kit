@@ -44,7 +44,7 @@ export const HeaderMenuLinks = () => {
                 href={href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-lg gap-2"
+                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-md gap-2"
               >
                 {icon}
                 <span>{label}</span>
@@ -53,7 +53,7 @@ export const HeaderMenuLinks = () => {
               <Link
                 href={href}
                 passHref
-                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-lg gap-2"
+                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-md gap-2"
               >
                 {icon}
                 <span>{label}</span>
@@ -78,9 +78,9 @@ export const Header = () => {
   );
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 sm:px-6 py-6">
-      <div className="navbar-start w-auto lg:w-1/2">
-        <div className="lg:hidden dropdown" ref={burgerMenuRef}>
+    <div className="sticky md:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 sm:px-6 py-6">
+      <div className="navbar-start w-auto md:w-1/2">
+        <div className="md:hidden dropdown" ref={burgerMenuRef}>
           <label
             tabIndex={0}
             className={`ml-1 btn btn-ghost ${isDrawerOpen ? "hover:bg-secondary" : "hover:bg-transparent"}`}
@@ -102,12 +102,12 @@ export const Header = () => {
             </ul>
           )}
         </div>
-        <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6 shrink-0">
+        <Link href="/" passHref className="max-w-[160px] md:max-w-none md:flex items-center gap-2 ml-4 mr-6 shrink-0">
           <Image alt="SE2 logo" className="cursor-pointer" width={205} height={54} src="/logo.svg" />
         </Link>
       </div>
       <div className="navbar-end flex-grow mr-4">
-        <ul className="hidden lg:flex lg:flex-nowrap px-1 gap-2 pr-4">
+        <ul className="hidden md:flex md:flex-nowrap px-1 gap-2 pr-4">
           <HeaderMenuLinks />
         </ul>
         <RainbowKitCustomConnectButton />
