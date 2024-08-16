@@ -96,10 +96,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
       <div className="card bg-primary text-primary-content">
         <div className="card-body">
           <div className="flex mb-4 items-center">
-            <div className="rating">
-              <label className="cursor-pointer" htmlFor={`rating_${submission.id}_0`}>
-                x
-              </label>
+            <div className="rating flex items-center">
               <input
                 type="radio"
                 id={`rating_${submission.id}_0`}
@@ -119,6 +116,11 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
                   onChange={() => vote(i + 1)}
                 />
               ))}
+              {score > 0 && (
+                <label className="cursor-pointer underline text-sm ml-3" htmlFor={`rating_${submission.id}_0`}>
+                  Clear
+                </label>
+              )}
             </div>
           </div>
           <h2 className="card-title">{submission.title}</h2>
