@@ -44,7 +44,7 @@ export const HeaderMenuLinks = () => {
                 href={href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-md gap-2"
+                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-lg gap-2"
               >
                 {icon}
                 <span>{label}</span>
@@ -53,7 +53,7 @@ export const HeaderMenuLinks = () => {
               <Link
                 href={href}
                 passHref
-                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-md gap-2"
+                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-lg gap-2"
               >
                 {icon}
                 <span>{label}</span>
