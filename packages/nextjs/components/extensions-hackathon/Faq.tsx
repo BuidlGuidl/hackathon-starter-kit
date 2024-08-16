@@ -55,7 +55,7 @@ export const Faq = () => {
             <div className="collapse-content">
               <p>{item.answer}</p>
             </div>
-            <div className="border-b border-black"></div>
+            {index !== faqData.length - 1 && <div className="border-b border-black"></div>}
           </div>
         ))}
       </div>
