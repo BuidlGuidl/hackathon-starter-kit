@@ -7,7 +7,7 @@ import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
 export const metadata = getMetadata({
   title: "SE-2 Extensions Hackathon",
-  description: "Build your custom Scaffold-ETH 2 extension and compete for prizes!",
+  description: "Build your custom Scaffold-ETH 2 extensions and compete for prizes!",
 });
 
 const spaceMono = Space_Mono({
