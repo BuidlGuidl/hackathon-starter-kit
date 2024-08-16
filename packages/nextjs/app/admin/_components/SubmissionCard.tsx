@@ -130,7 +130,17 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
             </a>
           )}
           <p>{submission.description}</p>
+          {submission.linkToVideo && (
+            <p>
+              Video:
+              <a href={submission.linkToVideo} className="link" target="_blank">
+                {submission.linkToVideo}
+              </a>
+            </p>
+          )}
           {submission.builder && <Address address={submission.builder} />}
+          {submission.telegram && <p>Telegram: {submission.telegram}</p>}
+          {submission.feedback && <p>{submission.feedback}</p>}
           <div className="collapse">
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">{submission.comments.length} comments</div>

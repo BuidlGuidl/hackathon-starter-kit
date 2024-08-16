@@ -26,7 +26,8 @@ export type CreateNewSubmissionBody = SubmissionInsert & { signature: `0x${strin
 
 export async function POST(req: Request) {
   try {
-    const { title, description, linkToRepository, signature, builder } = (await req.json()) as CreateNewSubmissionBody;
+    const { title, description, telegram, linkToRepository, linkToVideo, feedback, signature, builder } =
+      (await req.json()) as CreateNewSubmissionBody;
 
     if (
       !title ||
@@ -35,6 +36,7 @@ export async function POST(req: Request) {
       !signature ||
       !builder ||
       description.length > 750 ||
+      (feedback && feedback.length > 750) ||
       title.length > 75
     ) {
       return NextResponse.json({ error: "Invalid form details submitted" }, { status: 400 });
@@ -44,7 +46,14 @@ export async function POST(req: Request) {
       domain: EIP_712_DOMAIN,
       types: EIP_712_TYPES__SUBMISSION,
       primaryType: "Message",
-      message: { title, description, linkToRepository },
+      message: {
+        title,
+        description,
+        telegram: telegram || "",
+        linkToRepository,
+        linkToVideo: linkToVideo || "",
+        feedback: feedback || "",
+      },
       signature: signature,
     });
 
@@ -61,7 +70,10 @@ export async function POST(req: Request) {
     const submission = await createSubmission({
       title,
       description,
+      telegram,
       linkToRepository,
+      linkToVideo,
+      feedback,
       builder,
     });
 
