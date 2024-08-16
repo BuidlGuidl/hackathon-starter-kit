@@ -13,7 +13,7 @@ export const Hero = () => {
         <p className="text-base md:text-lg lg:text-xl mt-2">Build your own extensions and compete for prizes!</p>
         <div className="flex flex-col sm:flex-row items-start sm:items-center mt-4">
           <h2 className="text-lg lg:text-2xl">AUG 20 - SEP 2</h2>
-          <div className="px-4 py-2 mt-2 sm:mt-0 sm:ml-12 bg-accent text-base md:text-lg lg:text-xl">Online</div>
+          <div className="px-4 py-2 mt-2 sm:mt-0 sm:ml-12 bg-accent text-base md:text-lg lg:text-xl">Virtual</div>
         </div>
       </div>
       <div className="h-36 mt-4 md:mt-0 md:w-1/2 md:h-full relative">
