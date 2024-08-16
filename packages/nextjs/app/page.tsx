@@ -5,7 +5,7 @@ import { Faq, Hero, PrizeInfo, StickySubmissionInfo, Timeline } from "~~/compone
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col items-center mx-10">
+    <div className="flex flex-col items-center mx-6">
       <Hero />
       <PrizeInfo />
       <Timeline />
