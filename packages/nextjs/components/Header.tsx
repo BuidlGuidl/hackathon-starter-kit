@@ -102,7 +102,11 @@ export const Header = () => {
             </ul>
           )}
         </div>
-        <Link href="/" passHref className="max-w-[160px] md:max-w-none md:flex items-center gap-2 ml-4 mr-6 shrink-0">
+        <Link
+          href="/"
+          passHref
+          className="max-w-[160px] md:max-w-none md:flex items-center gap-2 ml-1 md:ml-4 mr-6 shrink-0"
+        >
           <Image alt="SE2 logo" className="cursor-pointer" width={205} height={54} src="/logo.svg" />
         </Link>
       </div>
