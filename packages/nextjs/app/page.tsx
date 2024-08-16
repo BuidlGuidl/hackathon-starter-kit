@@ -6,7 +6,7 @@ import { Timeline } from "~~/components/extensions-hackathon/Timeline";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col items-center mx-10">
+    <div className="flex flex-col items-center mx-6">
       <Hero />
       <PrizeInfo />
       <Timeline />
