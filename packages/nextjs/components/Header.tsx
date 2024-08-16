@@ -22,8 +22,7 @@ export const menuLinks: HeaderMenuLink[] = [
   },
   {
     label: "Join Telegram",
-    // TODO: Real TG link
-    href: "https://t.me/ToDo",
+    href: "https://t.me/+jgKFHjb9B_cyNmMx",
     icon: <ChatBubbleLeftEllipsisIcon className="h-4 w-4" />,
   },
 ];
