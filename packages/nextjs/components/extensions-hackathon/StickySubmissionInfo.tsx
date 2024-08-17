@@ -37,7 +37,7 @@ export const StickySubmissionInfo = () => {
           Apply
         </Link>
         <a
-          href="https://t.me/ToDo"
+          href="https://t.me/+jgKFHjb9B_cyNmMx"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-accent py-2 px-2 sm:px-4 border border-1 border-black text-center flex-1 2xl:py-3 2xl:px-6 text-sm sm:text-base 2xl:text-xl"
