@@ -28,7 +28,7 @@ export const StickySubmissionInfo = () => {
       <h2 className="text-2xl underline mb-0 md:mb-4 2xl:text-3xl 2xl:mb-6">
         Submissions <br className="hidden md:inline" /> open
       </h2>
-      <p className="md:mb-10 mt-2 2xl:text-xl 2xl:mb-12 2xl:mt-4">August 21-30</p>
+      <p className="md:mb-10 mt-2 2xl:text-xl 2xl:mb-12 2xl:mt-4">AUG 20 - SEP 2</p>
       <div className="flex md:block space-x-2 2xl:space-x-4">
         <Link
           href="/submit"
