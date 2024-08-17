@@ -10,7 +10,7 @@ export const Timeline = () => {
               <p className="m-0 font-bold mb-4">Aug 20</p>
               <div className="!mt-8 bg-black min-w-[28px] min-h-[1px] rotate-90"></div>
             </div>
-            <div className="flex flex-col space-y-2 items-center absolute rotate-90 text-center top-[55%] lg:rotate-0 lg:-top-[68px] lg:left-[55%]">
+            <div className="flex flex-col space-y-2 items-center absolute rotate-90 text-center top-[55%] lg:rotate-0 lg:-top-[68px] lg:left-[39%] xl:left-[50%]">
               <h2 className="m-0">Submission Closed</h2>
               <p className="m-0 font-bold">Sep 2</p>
               <div className="!mt-8 bg-black min-w-[28px] min-h-[1px] rotate-90"></div>
