@@ -22,8 +22,7 @@ export const menuLinks: HeaderMenuLink[] = [
   },
   {
     label: "Join Telegram",
-    // TODO: Real TG link
-    href: "https://t.me/ToDo",
+    href: "https://t.me/+jgKFHjb9B_cyNmMx",
     icon: <ChatBubbleLeftEllipsisIcon className="h-4 w-4" />,
   },
 ];
@@ -79,12 +78,12 @@ export const Header = () => {
   );
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 sm:px-6 py-6">
+    <div className="sticky md:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 px-6 py-6">
       <div className="navbar-start w-auto lg:w-1/2">
-        <div className="lg:hidden dropdown" ref={burgerMenuRef}>
+        <div className="md:hidden dropdown" ref={burgerMenuRef}>
           <label
             tabIndex={0}
-            className={`ml-1 btn btn-ghost ${isDrawerOpen ? "hover:bg-secondary" : "hover:bg-transparent"}`}
+            className={`p-0 mr-2 btn btn-ghost ${isDrawerOpen ? "hover:bg-secondary" : "hover:bg-transparent"}`}
             onClick={() => {
               setIsDrawerOpen(prevIsOpenState => !prevIsOpenState);
             }}
@@ -103,15 +102,21 @@ export const Header = () => {
             </ul>
           )}
         </div>
-        <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6 shrink-0">
+        <Link
+          href="/"
+          passHref
+          className="max-w-[160px] lg:max-w-none lg:flex items-center gap-2 ml-1 lg:ml-4 mr-2 lg:mr-6 shrink-0"
+        >
           <Image alt="SE2 logo" className="cursor-pointer" width={205} height={54} src="/logo.svg" />
         </Link>
       </div>
-      <div className="navbar-end flex-grow mr-4">
-        <ul className="hidden lg:flex lg:flex-nowrap px-1 gap-2 pr-4">
+      <div className="navbar-end flex-grow items-center justify-end">
+        <ul className="hidden md:flex md:flex-nowrap items-center gap-2 mr-2">
           <HeaderMenuLinks />
         </ul>
-        <RainbowKitCustomConnectButton />
+        <div className="flex-shrink-0">
+          <RainbowKitCustomConnectButton />
+        </div>
       </div>
     </div>
   );
