@@ -1,8 +1,7 @@
 "use client";
 
 import type { NextPage } from "next";
-import { Faq, Hero, PrizeInfo } from "~~/components/extensions-hackathon/";
-import { Timeline } from "~~/components/extensions-hackathon/Timeline";
+import { Faq, Hero, PrizeInfo, StickySubmissionInfo, Timeline } from "~~/components/extensions-hackathon/";
 
 const Home: NextPage = () => {
   return (
@@ -11,6 +10,7 @@ const Home: NextPage = () => {
       <PrizeInfo />
       <Timeline />
       <Faq />
+      <StickySubmissionInfo />
     </div>
   );
 };
