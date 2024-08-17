@@ -16,7 +16,7 @@ const SubmitButton = () => {
     >
       {isConnected ? (
         <button
-          className="btn border-2 border-gray-300 px-6 text-m h-8 min-h-8 font-medium"
+          className="btn border border-black px-6 text-lg h-10 min-h-10 font-medium"
           disabled={pending}
           aria-disabled={pending}
         >
