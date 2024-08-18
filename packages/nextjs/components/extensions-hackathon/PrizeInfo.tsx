@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const PrizeInfo = () => {
   return (
     <div className="flex flex-col md:flex-row w-full h-auto md:h-[30vh] bg-accent border border-1 border-t-0 border-black">
@@ -7,7 +9,7 @@ export const PrizeInfo = () => {
       </div>
       <div className="flex flex-col items-center justify-center w-full md:w-1/3 pt-0 pb-4 md:py-0 border-t md:border-t-0 border-black">
         <p className="text-lg md:text-xl 2xl:text-2xl text-center mb-1 md:mb-2">In collaboration with</p>
-        <img src="/ens-logo-dao.png" alt="ENS DAO Logo" className="w-20 md:w-32" />
+        <Image src="/ens-logo-dao.png" alt="ENS DAO Logo" width={128} height={128} className="w-20 md:w-32" />
       </div>
     </div>
   );
