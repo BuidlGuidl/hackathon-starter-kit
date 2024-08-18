@@ -11,15 +11,19 @@ const SubmitButton = () => {
 
   return (
     <div
-      className={`flex ${!isConnected && "tooltip tooltip-bottom"}`}
+      className={`items-center flex flex-col ${!isConnected && "tooltip tooltip-bottom"}`}
       data-tip={`${!isConnected ? "Please connect your wallet" : ""}`}
     >
       {isConnected ? (
-        <button className="btn btn-primary w-full" disabled={pending} aria-disabled={pending}>
-          Submit
+        <button
+          className="btn border border-black px-6 text-lg h-10 min-h-10 font-medium"
+          disabled={pending}
+          aria-disabled={pending}
+        >
+          Submit <span className="text-accent">✦</span>
         </button>
       ) : (
-        <RainbowKitCustomConnectButton fullWidth={true} />
+        <RainbowKitCustomConnectButton />
       )}
     </div>
   );

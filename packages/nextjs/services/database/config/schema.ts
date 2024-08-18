@@ -10,7 +10,10 @@ export const submissions = pgTable("submissions", {
   id: serial("id").primaryKey(),
   title: varchar("name", { length: 256 }).notNull(),
   description: text("description").notNull(),
+  telegram: varchar("telegram", { length: 256 }),
   linkToRepository: varchar("link_to_repository", { length: 256 }).notNull(),
+  linkToVideo: varchar("link_to_video", { length: 256 }),
+  feedback: text("feedback"),
   submissionTimestamp: timestamp("submission_timestamp")
     .default(sql`now()`)
     .notNull(),

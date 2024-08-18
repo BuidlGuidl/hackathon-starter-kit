@@ -11,10 +11,12 @@ import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
 
 const MAX_DESCRIPTION_LENGTH = 750;
+const MAX_FEEDBACK_LENGTH = 750;
 
 const Form = () => {
   const { address: connectedAddress } = useAccount();
   const [descriptionLength, setDescriptionLength] = useState(0);
+  const [feedbackLength, setFeedbackLength] = useState(0);
   const { signTypedDataAsync } = useSignTypedData();
   const router = useRouter();
   const { mutateAsync: postNewSubmission } = useMutation({
@@ -33,22 +35,38 @@ const Form = () => {
       const description = formData.get("description") as string;
       const linkToRepository = formData.get("linkToRepository") as string;
       if (!title || !description || !linkToRepository) {
-        notification.error("Please fill all the fields");
+        notification.error("Please fill all the required fields");
         return;
       }
+
+      const telegram = formData.get("telegram") as string;
+      const linkToVideo = formData.get("linkToVideo") as string;
+      const feedback = formData.get("feedback") as string;
 
       const signature = await signTypedDataAsync({
         domain: EIP_712_DOMAIN,
         types: EIP_712_TYPES__SUBMISSION,
         primaryType: "Message",
         message: {
-          title: title,
-          description: description,
-          linkToRepository: linkToRepository,
+          title,
+          description,
+          telegram,
+          linkToRepository,
+          linkToVideo,
+          feedback,
         },
       });
 
-      await postNewSubmission({ title, description, linkToRepository, signature, builder: connectedAddress });
+      await postNewSubmission({
+        title,
+        description,
+        telegram,
+        linkToRepository,
+        linkToVideo,
+        feedback,
+        signature,
+        builder: connectedAddress,
+      });
 
       notification.success("Extension submitted successfully!");
       router.push("/");
@@ -62,14 +80,13 @@ const Form = () => {
   };
 
   return (
-    <div className="card card-compact rounded-xl max-w-[95%] w-[500px] bg-secondary shadow-lg mb-12">
-      <form action={clientFormAction} className="card-body space-y-3">
-        <h2 className="card-title self-center text-3xl !mb-0">Submit Extension</h2>
-        <div className="space-y-2">
-          <p className="m-0 text-xl ml-2">Title</p>
-          <div className="flex border-2 border-base-300 bg-base-200 rounded-xl text-accent">
+    <div className="card w-[95%]">
+      <form action={clientFormAction} className="card-body space-y-2 p-0 md:p-2">
+        <div className="space-y-1">
+          <p className="m-0 text-lg">Title *</p>
+          <div className="flex border-2 border-base-300 bg-base-200 text-accent">
             <input
-              className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] px-4 border w-full font-medium placeholder:text-accent/50 text-gray-400"
+              className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-700 h-[2.2rem] min-h-[2.2rem] px-4 border w-full font-medium placeholder:text-gray-300 text-gray-700"
               placeholder="Extension title"
               name="title"
               autoComplete="off"
@@ -78,11 +95,11 @@ const Form = () => {
             />
           </div>
         </div>
-        <div className="space-y-2">
-          <p className="m-0 text-xl ml-2">Description</p>
-          <div className="flex flex-col border-2 border-base-300 bg-base-200 rounded-xl text-accent">
+        <div className="space-y-1">
+          <p className="m-0 text-lg">Description *</p>
+          <div className="flex flex-col border-2 border-base-300 bg-base-200 text-accent">
             <textarea
-              className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-400 px-4 pt-2 border w-full font-medium placeholder:text-accent/50 text-gray-400 h-28 md:h-52 rounded-none"
+              className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-700 px-4 pt-2 border w-full font-medium placeholder:text-gray-300 text-gray-700 h-28 md:h-52 rounded-none"
               placeholder="Extension description"
               name="description"
               autoComplete="off"
@@ -94,17 +111,58 @@ const Form = () => {
             </p>
           </div>
         </div>
-        <div className="space-y-2">
-          <p className="m-0 text-xl ml-2">Repository URL</p>
-          <div className="flex border-2 border-base-300 bg-base-200 rounded-xl text-accent">
+        <div className="space-y-1">
+          <p className="m-0 text-lg">Your Telegram handle</p>
+          <div className="flex border-2 border-base-300 bg-base-200 text-accent">
             <input
-              className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2.2rem] min-h-[2.2rem] px-4 border w-full font-medium placeholder:text-accent/50 text-gray-400"
+              className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-700 h-[2.2rem] min-h-[2.2rem] px-4 border w-full font-medium placeholder:text-gray-300 text-gray-700"
+              placeholder="@username"
+              name="telegram"
+              autoComplete="off"
+              type="text"
+              maxLength={75}
+            />
+          </div>
+        </div>
+        <div className="space-y-1">
+          <p className="m-0 text-lg">Repository URL *</p>
+          <div className="flex border-2 border-base-300 bg-base-200 text-accent">
+            <input
+              className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-700 h-[2.2rem] min-h-[2.2rem] px-4 border w-full font-medium placeholder:text-gray-300 text-gray-700"
               placeholder="https://"
               name="linkToRepository"
               autoComplete="off"
               type="text"
               maxLength={75}
             />
+          </div>
+        </div>
+        <div className="space-y-1">
+          <p className="m-0 text-lg">Project video link</p>
+          <div className="flex border-2 border-base-300 bg-base-200 text-accent">
+            <input
+              className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-700 h-[2.2rem] min-h-[2.2rem] px-4 border w-full font-medium placeholder:text-gray-300 text-gray-700"
+              placeholder="https://"
+              name="linkToVideo"
+              autoComplete="off"
+              type="text"
+              maxLength={75}
+            />
+          </div>
+        </div>
+        <div className="space-y-1">
+          <p className="m-0 text-lg">What would you improve about extensions?</p>
+          <div className="flex flex-col border-2 border-base-300 bg-base-200 text-accent">
+            <textarea
+              className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-700 px-4 pt-2 border w-full font-medium placeholder:text-gray-300 text-gray-700 h-28 md:h-52 rounded-none"
+              name="feedback"
+              autoComplete="off"
+              maxLength={MAX_FEEDBACK_LENGTH}
+              onChange={e => setFeedbackLength(e.target.value.length)}
+            />
+            <p className="my-1">
+              {feedbackLength} / {MAX_FEEDBACK_LENGTH}
+            </p>
           </div>
         </div>
         <SubmitButton />
