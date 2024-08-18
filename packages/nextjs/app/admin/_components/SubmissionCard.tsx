@@ -140,7 +140,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
           )}
           {submission.builder && <Address address={submission.builder} />}
           {submission.telegram && <p>Telegram: {submission.telegram}</p>}
-          {submission.feedback && <p>{submission.feedback}</p>}
+          {submission.feedback && <p>Extensions feedback: {submission.feedback}</p>}
           <div className="collapse">
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">{submission.comments.length} comments</div>
