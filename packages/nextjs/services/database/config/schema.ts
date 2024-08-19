@@ -12,7 +12,7 @@ export const submissions = pgTable("submissions", {
   description: text("description").notNull(),
   telegram: varchar("telegram", { length: 256 }),
   linkToRepository: varchar("link_to_repository", { length: 256 }).notNull(),
-  linkToVideo: varchar("link_to_video", { length: 256 }),
+  linkToVideo: varchar("link_to_video", { length: 256 }).notNull(),
   feedback: text("feedback"),
   submissionTimestamp: timestamp("submission_timestamp")
     .default(sql`now()`)
