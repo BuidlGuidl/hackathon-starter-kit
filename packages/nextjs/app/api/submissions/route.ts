@@ -33,6 +33,7 @@ export async function POST(req: Request) {
       !title ||
       !description ||
       !linkToRepository ||
+      !linkToVideo ||
       !signature ||
       !builder ||
       description.length > 750 ||
@@ -51,7 +52,7 @@ export async function POST(req: Request) {
         description,
         telegram: telegram || "",
         linkToRepository,
-        linkToVideo: linkToVideo || "",
+        linkToVideo,
         feedback: feedback || "",
       },
       signature: signature,
