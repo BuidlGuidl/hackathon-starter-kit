@@ -1,28 +1,41 @@
 const faqData = [
   {
-    question: "What's SE-2?",
+    question: "What makes a good Scaffold-ETH 2 extension?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "A good extension typically involves contract and front-end interaction. It should solve a real problem or enhance the developer experience. <br /><br />Examples include implementing your favourite EIP, adding a useful kit that extends Scaffold-ETH 2's capabilities or implementing a Solidity by Example application.<br /><br />You can check <a href='https://github.com/scaffold-eth/create-eth-extensions' target='_blank' rel='noopener noreferrer' class='underline'>our curated extensions branches</a> to get some inspiration: eip-712, erc-20, onchainkit, ponder or subgraph are extensions that are already available.",
   },
   {
-    question: "What are SE-2 extensions?",
-    answer:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    question: "Who can participate in this hackathon?",
+    answer: "Developers of all skill levels are welcome to participate!",
   },
   {
-    question: "What do I have to do to participate?",
+    question: "Can I work in a team?",
     answer:
-      "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "Yes, you can work individually or in teams. We encourage collaboration! Find your partners in <a href='https://t.me/+jgKFHjb9B_cyNmMx' target='_blank' rel='noopener noreferrer' class='underline'>telegram</a>",
   },
   {
-    question: "Are there any rules for the extension?",
+    question: "How will projects be judged?",
     answer:
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam. Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+      "Projects will be evaluated by a commitee based on innovation, technical complexity, use of Scaffold-ETH 2 capabilities, and potential impact to the ecosystem.",
   },
   {
-    question: "What makes a good extension?",
+    question: "Will there be mentors or technical support available?",
     answer:
-      "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
+      "Yes, we'll have mentors and technical support available throughout the hackathon to assist participants. <br />Scaffold-ETH 2 documentation, tutorials, and a <a href='https://t.me/+jgKFHjb9B_cyNmMx' target='_blank' rel='noopener noreferrer' class='underline'>dedicated support channel</a> are available.",
+  },
+  {
+    question: "Is there a registration fee?",
+    answer: "No, participation in the hackathon is free of charge.",
+  },
+  {
+    question: "Do I need to know Solidity or other tech stack to participate?",
+    answer:
+      "You can create a useful Scaffold-ETH 2 extension even without a contract! <br />We'd recommend doing some challenges of <a href='https://speedrunethereum.com/' target='_blank' rel='noopener noreferrer' class='underline'>SpeedRunEthereum</a> to get familiar with Scaffold-ETH 2, but totally fine if you can't!",
+  },
+  {
+    question: "What do I need for my submission?",
+    answer:
+      "You'll need to submit your code repository, a brief project description and a 2 minute video showcasing it.",
   },
 ];
 
@@ -52,8 +65,8 @@ export const Faq = () => {
                 <path d="M1.12109 1.37894L20.1521 17.032L39.5001 1.11816" stroke="#182232" strokeWidth="2" />
               </svg>
             </div>
-            <div className="collapse-content">
-              <p>{item.answer}</p>
+            <div className="collapse-content ml-4">
+              <p dangerouslySetInnerHTML={{ __html: item.answer }}></p>
             </div>
             {index !== faqData.length - 1 && <div className="border-b border-black"></div>}
           </div>
