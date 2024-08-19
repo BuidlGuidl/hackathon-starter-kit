@@ -10,7 +10,7 @@ export const Footer = () => {
     <div className="min-h-0 py-5 px-1 mb-11 lg:mb-0">
       <div className="w-full">
         <ul className="menu menu-horizontal w-full">
-          <div className="flex justify-center items-center gap-2 text-sm w-full">
+          <div className="flex flex-col sm:flex-row justify-center items-center sm:gap-2 text-sm w-full">
             <div className="text-center">
               <a
                 href="https://github.com/BuidlGuidl/extensions-hackathon"
