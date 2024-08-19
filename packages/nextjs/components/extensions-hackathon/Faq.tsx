@@ -50,7 +50,7 @@ type FaqItem = {
 
 export const Faq = () => {
   return (
-    <div className="flex flex-col items-center border border-1 border-t-0 border-black pb-20">
+    <div className="flex flex-col w-full items-center border border-1 border-t-0 border-black pb-20">
       <div className="md:w-1/2 md:mb-12">
         <h2 className="text-4xl my-12 text-center">FAQ</h2>
         {faqData.map((item: FaqItem, index) => (
