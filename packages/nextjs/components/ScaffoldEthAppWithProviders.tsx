@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
 import { RainbowKitSiweNextAuthProvider } from "@rainbow-me/rainbowkit-siwe-next-auth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -37,12 +38,13 @@ export const queryClient = new QueryClient({
 });
 
 export const ScaffoldEthAppWithProviders = ({ children }: { children: React.ReactNode }) => {
+  const pathName = usePathname();
   return (
     <WagmiProvider config={wagmiConfig}>
       <SessionProvider>
         <QueryClientProvider client={queryClient}>
           <ProgressBar />
-          <RainbowKitSiweNextAuthProvider>
+          <RainbowKitSiweNextAuthProvider enabled={pathName === "/admin"}>
             <RainbowKitProvider avatar={BlockieAvatar} theme={lightTheme()}>
               <ScaffoldEthApp>{children}</ScaffoldEthApp>
             </RainbowKitProvider>
