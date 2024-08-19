@@ -13,16 +13,52 @@ const Submit: NextPage = () => {
           kit that extends Scaffold-ETH 2&apos;s capabilities, or implementing a Solidity by Example application.
         </p>
         <p className="text-lg mt-4">
-          Need inspiration? Check out{" "}
+          Need inspiration? Check out our curated extensions branches:{" "}
           <a
-            href="https://github.com/scaffold-eth/create-eth-extensions"
+            href="https://github.com/scaffold-eth/create-eth-extensions/tree/eip-712"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"
           >
-            our curated extensions branches:
-          </a>{" "}
-          eip-712, erc-20, onchainkit, ponder or subgraph.
+            eip-712
+          </a>
+          ,{" "}
+          <a
+            href="https://github.com/scaffold-eth/create-eth-extensions/tree/erc-20"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            erc-20
+          </a>
+          ,{" "}
+          <a
+            href="https://github.com/scaffold-eth/create-eth-extensions/tree/onchainkit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            onchainkit
+          </a>
+          ,{" "}
+          <a
+            href="https://github.com/scaffold-eth/create-eth-extensions/tree/ponder"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            ponder
+          </a>
+          , or{" "}
+          <a
+            href="https://github.com/scaffold-eth/create-eth-extensions/tree/subgraph"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            subgraph
+          </a>
+          .
         </p>
         <h3 className="text-xl underline mt-10">Please pay attention to the following before submitting</h3>
         <ul className="list-disc pl-5 text-lg mt-4">
