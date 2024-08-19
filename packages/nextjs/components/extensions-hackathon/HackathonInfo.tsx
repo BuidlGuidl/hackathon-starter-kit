@@ -76,8 +76,9 @@ export const HackathonInfo = () => {
               or components.
             </p>
             <p className="mb-4">Extensions maintain compatibility with Scaffold-ETH 2 core updates and improvements.</p>
+            <p className="mb-4">Example usage:</p>
           </div>
-          <CommandDisplay command="npx create-eth@latest -e username/reponame" />
+          <CommandDisplay command="npx create-eth@latest -e gitHubUsername/repoName" />
           <div className="flex flex-wrap justify-center md:justify-start gap-12 mt-8">
             <a
               href="https://github.com/scaffold-eth/create-eth/tree/template-files/contributors"
@@ -85,6 +86,13 @@ export const HackathonInfo = () => {
               className="underline pl-0 font-medium md:text-2xl"
             >
               Docs
+            </a>
+            <a
+              href="https://github.com/scaffold-eth/create-eth-extensions"
+              target="_blank"
+              className="underline pl-0 font-medium md:text-2xl"
+            >
+              Examples
             </a>
           </div>
         </div>
