@@ -54,21 +54,9 @@ export const Faq = () => {
       <div className="md:w-1/2 md:mb-12">
         <h2 className="text-4xl my-12 text-center">FAQ</h2>
         {faqData.map((item: FaqItem, index) => (
-          <div key={index} tabIndex={0} className="collapse mb-2 relative">
+          <div key={index} tabIndex={0} className="collapse collapse-arrow mb-2 rounded-none">
             <input type="checkbox" className="peer" />
-            <div className="collapse-title ml-4 flex justify-between items-center">
-              {item.question}
-              <svg
-                width="41"
-                height="19"
-                viewBox="0 0 41 19"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="transform transition-transform duration-200 peer-checked:rotate-180 scale-75"
-              >
-                <path d="M1.12109 1.37894L20.1521 17.032L39.5001 1.11816" stroke="#182232" strokeWidth="2" />
-              </svg>
-            </div>
+            <div className="collapse-title pl-8 mr-4 flex justify-between items-center">{item.question}</div>
             <div className="collapse-content ml-4">
               <p dangerouslySetInnerHTML={{ __html: item.answer }}></p>
             </div>
