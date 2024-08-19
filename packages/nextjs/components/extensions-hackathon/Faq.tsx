@@ -6,12 +6,12 @@ const faqData = [
   {
     question: "What makes a good Scaffold-ETH 2 extension?",
     answer:
-      "A good extension typically involves contract and front-end interaction. It should solve a real problem or enhance the developer experience. <br /><br />Examples include implementing your favourite EIP, adding a useful kit that extends Scaffold-ETH 2's capabilities or implementing a Solidity by Example application.<br /><br />You can check <a href='https://github.com/scaffold-eth/create-eth-extensions' target='_blank' rel='noopener noreferrer' class='underline'>our curated extensions branches</a> to get some inspiration: eip-712, erc-20, onchainkit, ponder or subgraph are extensions that are already available.",
+      "A good extension typically involves contract and front-end interaction. It should solve a real problem or enhance the developer experience. <br /><br />Examples include implementing your favorite EIP, adding a useful kit that extends Scaffold-ETH 2's capabilities or implementing a Solidity by Example application.<br /><br />You can check <a href='https://github.com/scaffold-eth/create-eth-extensions' target='_blank' rel='noopener noreferrer' class='underline'>our curated extensions branches</a> to get some inspiration: eip-712, erc-20, onchainkit, ponder or subgraph are extensions that are already available.",
   },
   {
     question: "How can I submit my extension?",
     answer:
-      "You can send you submission in <a href='/submit' class='link'>the submission page</a>. You'll your code repository, a brief project description and a 2 minute video showcasing it.",
+      "You can send your submission in <a href='/submit' class='link'>the submission page</a>. You'll submit your code repository, a brief project description, and a 2-minute video showcasing it.",
   },
   {
     question: "Can I submit more than one extension?",
@@ -25,7 +25,7 @@ const faqData = [
   {
     question: "How will projects be judged?",
     answer:
-      "Projects will be evaluated by a commitee based on innovation, technical complexity, use of Scaffold-ETH 2 capabilities, and potential impact to the ecosystem.",
+      "Projects will be evaluated by a committee based on innovation, technical complexity, use of Scaffold-ETH 2 capabilities, and potential impact to the ecosystem.",
   },
   {
     question: "Will there be mentors or technical support available?",
