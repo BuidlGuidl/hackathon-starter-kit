@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { SignInBtn } from "./_components/SignInBtn";
 import { Submissions } from "./_components/Submissions";
 import type { NextPage } from "next";
 import { getServerSession } from "next-auth";
@@ -8,7 +8,11 @@ const Admin: NextPage = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {
-    return redirect("/siwe");
+    return (
+      <div className="flex items-center justify-center">
+        <SignInBtn />
+      </div>
+    );
   }
 
   if (session?.user?.role !== "admin") {

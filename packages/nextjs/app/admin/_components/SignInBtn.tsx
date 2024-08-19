@@ -3,36 +3,22 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
 import { useAuthSession } from "~~/hooks/useAuthSession";
-import { useHandleLogin } from "~~/hooks/useHandleLogin";
 
-export default function Siwe() {
-  const { isConnected } = useAccount();
+export const SignInBtn = () => {
   const { openConnectModal } = useConnectModal();
-  const { handleLogin } = useHandleLogin();
   const { isAuthenticated } = useAuthSession();
   const router = useRouter();
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push("/admin");
+      router.refresh();
     }
   }, [router, isAuthenticated]);
 
   return (
-    <button
-      className="btn btn-primary my-10 self-center"
-      onClick={e => {
-        e.preventDefault();
-        if (!isConnected) {
-          openConnectModal?.();
-        } else {
-          handleLogin();
-        }
-      }}
-    >
+    <button className="btn btn-outline text-lg font-normal" onClick={openConnectModal} type="button">
       Sign in with Ethereum
     </button>
   );
-}
+};
