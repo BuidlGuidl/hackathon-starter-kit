@@ -56,7 +56,7 @@ export const Faq = () => {
         {faqData.map((item: FaqItem, index) => (
           <div key={index} tabIndex={0} className="collapse collapse-arrow mb-2 rounded-none">
             <input type="checkbox" className="peer" />
-            <div className="collapse-title ml-4 flex justify-between items-center">{item.question}</div>
+            <div className="collapse-title pl-8 mr-4 flex justify-between items-center">{item.question}</div>
             <div className="collapse-content ml-4">
               <p dangerouslySetInnerHTML={{ __html: item.answer }}></p>
             </div>
