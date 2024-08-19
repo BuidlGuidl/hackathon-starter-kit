@@ -1,12 +1,21 @@
 const faqData = [
   {
+    question: "Who can participate in this hackathon?",
+    answer: "Everyone! Developers of all skill levels are welcome to participate.",
+  },
+  {
     question: "What makes a good Scaffold-ETH 2 extension?",
     answer:
       "A good extension typically involves contract and front-end interaction. It should solve a real problem or enhance the developer experience. <br /><br />Examples include implementing your favourite EIP, adding a useful kit that extends Scaffold-ETH 2's capabilities or implementing a Solidity by Example application.<br /><br />You can check <a href='https://github.com/scaffold-eth/create-eth-extensions' target='_blank' rel='noopener noreferrer' class='underline'>our curated extensions branches</a> to get some inspiration: eip-712, erc-20, onchainkit, ponder or subgraph are extensions that are already available.",
   },
   {
-    question: "Who can participate in this hackathon?",
-    answer: "Developers of all skill levels are welcome to participate!",
+    question: "How can I submit my extension?",
+    answer:
+      "You can send you submission in <a href='/submit' class='link'>the submission page</a>. You'll your code repository, a brief project description and a 2 minute video showcasing it.",
+  },
+  {
+    question: "Can I submit more than one extension?",
+    answer: "Yes, you can submit as many extensions as you want! But we encourage quality over quantity.",
   },
   {
     question: "Can I work in a team?",
@@ -31,11 +40,6 @@ const faqData = [
     question: "Do I need to know Solidity or other tech stack to participate?",
     answer:
       "You can create a useful Scaffold-ETH 2 extension even without a contract! <br />We'd recommend doing some challenges of <a href='https://speedrunethereum.com/' target='_blank' rel='noopener noreferrer' class='underline'>SpeedRunEthereum</a> to get familiar with Scaffold-ETH 2, but totally fine if you can't!",
-  },
-  {
-    question: "What do I need for my submission?",
-    answer:
-      "You'll need to submit your code repository, a brief project description and a 2 minute video showcasing it.",
   },
 ];
 
