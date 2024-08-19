@@ -34,13 +34,13 @@ const Form = () => {
       const title = formData.get("title") as string;
       const description = formData.get("description") as string;
       const linkToRepository = formData.get("linkToRepository") as string;
-      if (!title || !description || !linkToRepository) {
+      const linkToVideo = formData.get("linkToVideo") as string;
+      if (!title || !description || !linkToRepository || !linkToVideo) {
         notification.error("Please fill all the required fields");
         return;
       }
 
       const telegram = formData.get("telegram") as string;
-      const linkToVideo = formData.get("linkToVideo") as string;
       const feedback = formData.get("feedback") as string;
 
       const signature = await signTypedDataAsync({
@@ -138,7 +138,7 @@ const Form = () => {
           </div>
         </div>
         <div className="space-y-1">
-          <p className="m-0 text-lg">Project video link</p>
+          <p className="m-0 text-lg">Project video link *</p>
           <div className="flex border-2 border-base-300 bg-base-200 text-accent">
             <input
               className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-700 h-[2.2rem] min-h-[2.2rem] px-4 border w-full font-medium placeholder:text-gray-300 text-gray-700"
