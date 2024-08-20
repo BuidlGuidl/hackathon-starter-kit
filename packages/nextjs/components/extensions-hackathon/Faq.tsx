@@ -1,7 +1,7 @@
 const faqData = [
   {
-    question: "Who can participate in this hackathon?",
-    answer: "Everyone! Developers of all skill levels are welcome to participate.",
+    question: "How to participate in the hackathon?",
+    answer: "Everyone can participate! <br /><br />There is no sign-up required. You can start building your Scaffold-ETH 2 Extension and when you're ready, simply submit your completed project before the hackathon deadline.",
   },
   {
     question: "What makes a good Scaffold-ETH 2 extension?",
