@@ -151,7 +151,7 @@ const Form = () => {
           </div>
         </div>
         <div className="space-y-1">
-          <p className="m-0 text-lg">What would you improve about extensions?</p>
+          <p className="m-0 text-lg">What would you improve about the SE-2 extension system?</p>
           <div className="flex flex-col border-2 border-base-300 bg-base-200 text-accent">
             <textarea
               className="input input-ghost focus-within:border-transparent focus:outline-none focus:bg-transparent focus:text-gray-700 px-4 pt-2 border w-full font-medium placeholder:text-gray-300 text-gray-700 h-28 md:h-52 rounded-none"
