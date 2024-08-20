@@ -30,6 +30,7 @@
     "ethers": "^6.13.1",
     "next": "~14.0.4",
     "next-auth": "^4.24.7",
+    "next-plausible": "^3.12.2",
     "next-themes": "~0.2.1",
     "nprogress": "~0.2.0",
     "pg": "^8.12.0",

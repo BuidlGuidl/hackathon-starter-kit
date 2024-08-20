@@ -2684,6 +2684,7 @@ __metadata:
     ethers: ^6.13.1
     next: ~14.0.4
     next-auth: ^4.24.7
+    next-plausible: ^3.12.2
     next-themes: ~0.2.1
     nprogress: ~0.2.0
     pg: ^8.12.0
@@ -11266,6 +11267,17 @@ __metadata:
     nodemailer:
       optional: true
   checksum: e7849ecf86394d86f08730b96f869c9353b6cc003794fcd953db2949f1ab06a2ce4f7a67312fdb8c7b3bbe7e99a8a215f11ef4eba5ec93f6c3e8ac1954e8b3e6
+  languageName: node
+  linkType: hard
+
+"next-plausible@npm:^3.12.2":
+  version: 3.12.2
+  resolution: "next-plausible@npm:3.12.2"
+  peerDependencies:
+    next: ^11.1.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 1df67af9ef54e602718c6f59e18fb9185a63e851cf8a9007ab8b4bde2622720ca43647ba143248a5442234cae84e39b662747f4eb28c6bfe1ea057531cc0546a
   languageName: node
   linkType: hard
 

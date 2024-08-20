@@ -1,5 +1,6 @@
 import { Space_Mono } from "next/font/google";
 import "@rainbow-me/rainbowkit/styles.css";
+import PlausibleProvider from "next-plausible";
 import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
 import { ThemeProvider } from "~~/components/ThemeProvider";
 import "~~/styles/globals.css";
@@ -20,6 +21,9 @@ const spaceMono = Space_Mono({
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   return (
     <html suppressHydrationWarning className={`${spaceMono.variable} scroll-smooth`}>
+      <head>
+        <PlausibleProvider domain="extensions.buidlguidl.com" />
+      </head>
       <body>
         <ThemeProvider enableSystem>
           <ScaffoldEthAppWithProviders>{children}</ScaffoldEthAppWithProviders>
