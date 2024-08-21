@@ -81,7 +81,7 @@ export const HackathonInfo = () => {
           <CommandDisplay command="npx create-eth@latest -e gitHubUsername/repoName" />
           <div className="flex flex-wrap justify-center md:justify-start gap-12 mt-8">
             <a
-              href="https://github.com/scaffold-eth/create-eth/tree/template-files/contributors"
+              href="https://github.com/scaffold-eth/create-eth/blob/main/contributors/THIRD-PARTY-EXTENSION.md"
               target="_blank"
               className="underline pl-0 font-medium md:text-2xl"
             >
