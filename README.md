@@ -39,12 +39,12 @@ Visit your app on: `http://localhost:3000`.
 
 We are using Drizzle with Postgres. You can run `drizzle-kit` from the root with `yarn drizzle-kit`
 
+- To sync your database run `yarn drizzle-kit migrate`
+- Tweak `seed.js` if needed + run `yarn seed` (will delete existing data)
+
 To iterate on the database:
 
 - Tweak the schema in `schema.ts`
-- Run `yarn drizzle-kit push` to apply the changes.
-- Tweak `seed.js` if needed + run `yarn seed` (will delete existing data)
-- You can explore the database with `yarn drizzle-kit studio`
+- `yarn drizzle-kit generate` to create migration files (or use `yarn drizzle-kit push` if you are just tinkering)
 
-After the initial iterations, we can start using migrations (`yarn drizzle-kit generate` & `yarn drizzle-kit migrate`)
-
+You can explore the database with `yarn drizzle-kit studio`
