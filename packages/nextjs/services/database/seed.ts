@@ -7,37 +7,18 @@ import { Client } from "pg";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.development") });
 
-const MAX_SUBMISSIONS_BEFORE_FORCE = 20;
-
 const client = new Client({
   connectionString: process.env.POSTGRES_URL,
 });
 
-// TODO: protect, only for dev.
 async function seed() {
   if (!process.env.POSTGRES_URL?.includes("localhost")) {
     console.error("Cannot seed production database");
     process.exit(1);
   }
 
-  const args = process.argv.slice(2);
-  const flags = args.filter(arg => arg.startsWith("--"));
-  const isForce = flags.includes("--force");
-
   await client.connect();
   const db = drizzle(client, { schema });
-
-  const submissionsCount = await db.query.submissions.findMany({
-    columns: {
-      id: true,
-    },
-    limit: 21,
-  });
-
-  if (submissionsCount.length > MAX_SUBMISSIONS_BEFORE_FORCE && !isForce) {
-    console.error("Database has more than 20 submission, use --force flag to reseed");
-    process.exit(1);
-  }
 
   await db.delete(comments).execute();
   await db.delete(votes).execute();
