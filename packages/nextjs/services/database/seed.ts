@@ -7,7 +7,6 @@ import { Client } from "pg";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.development") });
 
-const VERCEL_DB_STRING = "verceldb";
 const MAX_SUBMISSIONS_BEFORE_FORCE = 20;
 
 const client = new Client({
@@ -16,7 +15,7 @@ const client = new Client({
 
 // TODO: protect, only for dev.
 async function seed() {
-  if (process.env.POSTGRES_URL?.includes(VERCEL_DB_STRING)) {
+  if (!process.env.POSTGRES_URL?.includes("localhost")) {
     console.error("Cannot seed production database");
     process.exit(1);
   }
