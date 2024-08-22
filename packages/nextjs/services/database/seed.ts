@@ -7,12 +7,12 @@ import { Client } from "pg";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.development") });
 
+const client = new Client({
+  connectionString: process.env.POSTGRES_URL,
+});
+
 // TODO: protect, only for dev.
 async function seed() {
-  const client = new Client({
-    connectionString: process.env.POSTGRES_URL,
-  });
-
   await client.connect();
   const db = drizzle(client, { schema });
 
@@ -84,6 +84,7 @@ seed()
   .catch(error => {
     console.error("Error seeding database:", error);
   })
-  .finally(() => {
+  .finally(async () => {
+    await client.end();
     process.exit();
   });
