@@ -87,88 +87,99 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
   const currentVote = submission.votes.find(vote => vote.builder === connectedAddress);
   const score = currentVote ? currentVote.score : 0;
 
+  const telegramUser = submission.telegram?.replace("@", "");
+
   return (
-    <div key={submission.id} className="indicator">
-      <div className="indicator-item badge badge-secondary flex flex-col p-8">
-        <div className="text-2xl font-bold">{scoreAvg}</div>
-        <div>{submission.votes.length} votes</div>
-      </div>
-      <div className="card bg-primary text-primary-content">
-        <div className="card-body">
-          <div className="flex mb-4 items-center">
-            <div className="rating flex items-center">
+    <div key={submission.id} className="card bg-secondary text-secondary-content border border-primary rounded-none">
+      <div className="card-body p-5 xl:p-6">
+        <h2 className="card-title mb-4 text-2xl xl:text-3xl">{submission.title}</h2>
+        <div className="flex flex-wrap justify-between items-center gap-4">
+          <div className="mt-1 flex shrink-0 gap-3">
+            {submission.linkToRepository && (
+              <a href={submission.linkToRepository} className="inline-block" target="_blank">
+                <img alt="github icon" className="w-6 h-6" src="/icon-github.svg" />
+              </a>
+            )}
+
+            <a href={submission.linkToVideo} className="inline-block" target="_blank">
+              <img alt="youtube icon" className="w-6 h-6" src="/icon-youtube.svg" />
+            </a>
+
+            {submission.telegram && (
+              <a href={`https://t.me/${telegramUser}`} className="inline-block" target="_blank">
+                <img alt="telegram icon" className="w-6 h-6" src="/icon-telegram.svg" />
+              </a>
+            )}
+          </div>
+
+          {submission.builder && <Address address={submission.builder} />}
+        </div>
+
+        <p>{submission.description}</p>
+        {submission.feedback && <p>Extensions feedback: {submission.feedback}</p>}
+
+        <div className="flex mb-4 items-center">
+          <div className="rating flex items-center">
+            <input
+              type="radio"
+              id={`rating_${submission.id}_0`}
+              name={`rating_${submission.id}`}
+              className="rating-hidden"
+              checked={score === 0}
+              onChange={() => vote(0)}
+            />
+            {[...Array(10)].map((_e, i) => (
               <input
                 type="radio"
-                id={`rating_${submission.id}_0`}
                 name={`rating_${submission.id}`}
-                className="rating-hidden"
-                checked={score === 0}
-                onChange={() => vote(0)}
+                className="mask mask-star"
+                title={(i + 1).toString()}
+                checked={score === i + 1}
+                key={i}
+                onChange={() => vote(i + 1)}
               />
-              {[...Array(10)].map((_e, i) => (
-                <input
-                  type="radio"
-                  name={`rating_${submission.id}`}
-                  className="mask mask-star"
-                  title={(i + 1).toString()}
-                  checked={score === i + 1}
-                  key={i}
-                  onChange={() => vote(i + 1)}
-                />
-              ))}
-              {score > 0 && (
-                <label className="cursor-pointer underline text-sm ml-3" htmlFor={`rating_${submission.id}_0`}>
-                  Clear
-                </label>
-              )}
-            </div>
+            ))}
+            {score > 0 && (
+              <label className="cursor-pointer underline text-sm ml-3" htmlFor={`rating_${submission.id}_0`}>
+                Clear
+              </label>
+            )}
           </div>
-          <h2 className="card-title">{submission.title}</h2>
-          {submission.linkToRepository && (
-            <a href={submission.linkToRepository} className="link" target="_blank">
-              {submission.linkToRepository}
-            </a>
-          )}
-          <p>{submission.description}</p>
-          <p>
-            Video:
-            <a href={submission.linkToVideo} className="link" target="_blank">
-              {submission.linkToVideo}
-            </a>
-          </p>
-          {submission.builder && <Address address={submission.builder} />}
-          {submission.telegram && <p>Telegram: {submission.telegram}</p>}
-          {submission.feedback && <p>Extensions feedback: {submission.feedback}</p>}
-          <div className="collapse">
-            <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium">{submission.comments.length} comments</div>
-            <div className="collapse-content">
-              {submission.comments?.map(comment => (
-                <div key={comment.id} className="card bg-base-200 text-base-content mb-4">
-                  <div className="card-body">
-                    <Address address={comment.builder} />
-                    <p className="m-1">{comment.comment}</p>
-                    <p>{comment.createdAt ? getFormattedDateTime(new Date(comment.createdAt)) : "-"}</p>
-                  </div>
-                </div>
-              ))}
-              <div className="card bg-base-200 text-base-content mb-4">
+        </div>
+
+        <div className="collapse">
+          <input type="checkbox" />
+          <div className="collapse-title text-xl font-medium">{submission.comments.length} comments</div>
+          <div className="collapse-content">
+            {submission.comments?.map(comment => (
+              <div key={comment.id} className="card bg-base-200 text-base-content mb-4">
                 <div className="card-body">
-                  <form action={clientFormAction} className="card-body space-y-3 p-0">
-                    <textarea
-                      className="p-2 h-32"
-                      value={newComment}
-                      name="comment"
-                      onChange={field => {
-                        setNewComment(field.target.value);
-                      }}
-                    />
-                    <button className="btn btn-primary">Add Comment</button>
-                  </form>
+                  <Address address={comment.builder} />
+                  <p className="m-1">{comment.comment}</p>
+                  <p>{comment.createdAt ? getFormattedDateTime(new Date(comment.createdAt)) : "-"}</p>
                 </div>
+              </div>
+            ))}
+            <div className="card bg-base-200 text-base-content mb-4">
+              <div className="card-body">
+                <form action={clientFormAction} className="card-body space-y-3 p-0">
+                  <textarea
+                    className="p-2 h-32"
+                    value={newComment}
+                    name="comment"
+                    onChange={field => {
+                      setNewComment(field.target.value);
+                    }}
+                  />
+                  <button className="btn btn-primary">Add Comment</button>
+                </form>
               </div>
             </div>
           </div>
+        </div>
+        <div className="badge badge-accent flex flex-col p-8 border border-accent-content">
+          <div className="text-2xl font-bold">{scoreAvg}</div>
+          <div>{submission.votes.length} votes</div>
         </div>
       </div>
     </div>
