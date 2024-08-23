@@ -5,8 +5,8 @@ export const Submissions = async () => {
   const submissions = await getAllSubmissions();
 
   return (
-    <div className="px-8 pt-14">
-      <div className="grid gap-8 lg:grid-cols-3">
+    <div className="px-6">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {submissions?.map(submission => {
           return <SubmissionCard key={submission.id} submission={submission} />;
         })}

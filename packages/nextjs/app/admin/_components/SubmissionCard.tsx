@@ -91,10 +91,10 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
 
   return (
     <div key={submission.id} className="card bg-secondary text-secondary-content border border-primary rounded-none">
-      <div className="card-body pt-6">
+      <div className="card-body p-5 xl:p-6">
         <h2 className="card-title mb-4 text-2xl xl:text-3xl">{submission.title}</h2>
-        <div className="flex justify-between">
-          <div className="mt-1 flex gap-4">
+        <div className="flex flex-wrap justify-between items-center gap-4">
+          <div className="mt-1 flex shrink-0 gap-3">
             {submission.linkToRepository && (
               <a href={submission.linkToRepository} className="inline-block" target="_blank">
                 <svg
@@ -137,6 +137,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
               </a>
             )}
           </div>
+
           {submission.builder && <Address address={submission.builder} />}
         </div>
 
