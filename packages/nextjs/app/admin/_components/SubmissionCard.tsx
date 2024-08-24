@@ -149,7 +149,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
 
         <div className="collapse">
           <input type="checkbox" />
-          <div className="collapse-title text-xl font-medium">{submission.comments.length} comments</div>
+          <div className="collapse-title text-lg font-medium">{submission.comments.length} comments</div>
           <div className="collapse-content">
             {submission.comments?.map(comment => (
               <div key={comment.id} className="card bg-base-200 text-base-content mb-4">
