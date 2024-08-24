@@ -58,8 +58,11 @@ export const SubmissionComments = ({ submission }: { submission: Submission }) =
     <div className="drawer drawer-end">
       <input id={`comments_drawer_${submission.id}`} type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-        <label htmlFor={`comments_drawer_${submission.id}`} className="drawer-button btn btn-sm btn-ghost">
-          {submission.comments.length} comments
+        <label
+          htmlFor={`comments_drawer_${submission.id}`}
+          className="drawer-button btn btn-sm btn-ghost font-semibold text-slate-700"
+        >
+          {submission.comments.length} Comments
         </label>
       </div>
       <div className="drawer-side z-20">
