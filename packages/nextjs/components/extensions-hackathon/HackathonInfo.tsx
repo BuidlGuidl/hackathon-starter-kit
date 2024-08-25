@@ -72,6 +72,10 @@ export const HackathonInfo = () => {
               dApps easily.
             </p>
             <p className="mb-4">
+              They are not meant to be final products, but rather starting points that developers can build upon and
+              customize for their specific needs.
+            </p>
+            <p className="mb-4">
               They integrate seamlessly with the base project, enabling quick addition of new features, pages, contracts
               or components.
             </p>
