@@ -1,10 +1,24 @@
 import { SubmissionCard } from "./SubmissionCard";
-import { getAllSubmissions } from "~~/services/database/repositories/submissions";
+import { Submission, getAllSubmissions } from "~~/services/database/repositories/submissions";
 
 export const Submissions = async () => {
   const submissions = await getAllSubmissions();
-  const submissionsWithVotes = submissions.filter(submission => submission.votes.length > 0);
-  const submissionsWithoutVotes = submissions.filter(submission => submission.votes.length === 0);
+
+  const { votes, noVotes } = submissions.reduce(
+    (acc, submission) => {
+      if (submission.votes.length > 0) {
+        acc.votes.push(submission);
+      } else {
+        acc.noVotes.push(submission);
+      }
+
+      return acc;
+    },
+    {
+      votes: [] as Submission[],
+      noVotes: [] as Submission[],
+    },
+  );
 
   return (
     <div className="px-6">
@@ -19,7 +33,7 @@ export const Submissions = async () => {
         />
         <div role="tabpanel" className="tab-content py-6">
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {submissionsWithoutVotes?.map(submission => {
+            {noVotes.map(submission => {
               return <SubmissionCard key={submission.id} submission={submission} />;
             })}
           </div>
@@ -28,7 +42,7 @@ export const Submissions = async () => {
         <input type="radio" name="submission_tabs" role="tab" className="tab whitespace-nowrap" aria-label="Voted" />
         <div role="tabpanel" className="tab-content py-6">
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {submissionsWithVotes?.map(submission => {
+            {votes.map(submission => {
               return <SubmissionCard key={submission.id} submission={submission} />;
             })}
           </div>
