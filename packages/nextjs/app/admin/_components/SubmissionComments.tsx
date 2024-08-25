@@ -20,7 +20,7 @@ function getFormattedDateTime(date: Date) {
 
 export const SubmissionComments = ({ submission }: { submission: Submission }) => {
   const [newComment, setNewComment] = useState("");
-  const { mutateAsync: postNewComment } = useMutation({
+  const { mutateAsync: postNewComment, isPending } = useMutation({
     mutationFn: (newComment: { comment: string }) =>
       postMutationFetcher(`/api/submissions/${submission.id}/comments`, { body: newComment }),
   });
@@ -93,16 +93,20 @@ export const SubmissionComments = ({ submission }: { submission: Submission }) =
           <form className="mt-6" action={clientFormAction}>
             <label className="form-control">
               <textarea
-                className="textarea textarea-bordered px-3 h-24 text-sm"
+                className="textarea textarea-bordered px-3 h-24 text-sm disabled:bg-slate-100 disabled:border-slate-300"
                 placeholder="Enter Comment"
                 value={newComment}
                 name="comment"
+                disabled={isPending}
                 onChange={field => {
                   setNewComment(field.target.value);
                 }}
               />
             </label>
-            <button className="mt-4 btn btn-sm btn-accent">Add Comment</button>
+            <button className="mt-4 btn btn-sm btn-accent" disabled={isPending}>
+              {isPending && <span className="loading loading-spinner w-4 h-4"></span>}
+              Add Comment
+            </button>
           </form>
         </div>
       </div>
