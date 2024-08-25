@@ -28,7 +28,7 @@ export const Submissions = async () => {
           name="submission_tabs"
           role="tab"
           className="tab whitespace-nowrap"
-          aria-label="Not Voted"
+          aria-label="No Votes"
           defaultChecked
         />
         <div role="tabpanel" className="tab-content py-6">
@@ -39,7 +39,13 @@ export const Submissions = async () => {
           </div>
         </div>
 
-        <input type="radio" name="submission_tabs" role="tab" className="tab whitespace-nowrap" aria-label="Voted" />
+        <input
+          type="radio"
+          name="submission_tabs"
+          role="tab"
+          className="tab whitespace-nowrap"
+          aria-label="Has Votes"
+        />
         <div role="tabpanel" className="tab-content py-6">
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {votes.map(submission => {
