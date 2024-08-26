@@ -91,8 +91,8 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
 
   return (
     <div key={submission.id} className="card bg-secondary text-secondary-content border border-primary rounded-none">
-      <div className="card-body p-5 xl:p-6">
-        <h2 className="card-title mb-4 text-2xl xl:text-3xl">{submission.title}</h2>
+      <div className="card-body p-4">
+        <h2 className="card-title mb-3 xl:text-2xl">{submission.title}</h2>
         <div className="flex flex-wrap justify-between items-center gap-4">
           <div className="mt-1 flex shrink-0 gap-3">
             {submission.linkToRepository && (
@@ -118,7 +118,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
         <p>{submission.description}</p>
         {submission.feedback && <p>Extensions feedback: {submission.feedback}</p>}
 
-        <div className="flex mb-4 items-center">
+        <div className="flex items-center">
           <div className="rating flex items-center">
             <input
               type="radio"
@@ -149,7 +149,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
 
         <div className="collapse">
           <input type="checkbox" />
-          <div className="collapse-title text-xl font-medium">{submission.comments.length} comments</div>
+          <div className="collapse-title text-lg font-medium">{submission.comments.length} comments</div>
           <div className="collapse-content">
             {submission.comments?.map(comment => (
               <div key={comment.id} className="card bg-base-200 text-base-content mb-4">
@@ -177,8 +177,8 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
             </div>
           </div>
         </div>
-        <div className="badge badge-accent flex flex-col p-8 border border-accent-content">
-          <div className="text-2xl font-bold">{scoreAvg}</div>
+        <div className="badge badge-accent flex flex-col p-7 px-5 border border-accent-content">
+          <div className="text-xl font-bold leading-tight">{scoreAvg}</div>
           <div>{submission.votes.length} votes</div>
         </div>
       </div>
