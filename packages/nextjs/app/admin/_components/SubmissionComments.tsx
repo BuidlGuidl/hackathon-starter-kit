@@ -8,7 +8,7 @@ import { Submission } from "~~/services/database/repositories/submissions";
 import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
 
-function getFormattedDateTime(date: Date) {
+export function getFormattedDateTime(date: Date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   const year = date.getFullYear();
