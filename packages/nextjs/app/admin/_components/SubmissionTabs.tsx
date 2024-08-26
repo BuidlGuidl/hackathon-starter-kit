@@ -27,8 +27,8 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-6">
-      <div role="tablist" className="tabs tabs-bordered tabs-lg bg-white">
+    <div className="max-w-7xl container mx-auto px-6">
+      <div role="tablist" className="tabs tabs-bordered tabs-lg">
         <input
           type="radio"
           name="submission_tabs"
