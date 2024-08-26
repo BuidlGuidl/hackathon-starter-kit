@@ -31,6 +31,10 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
     mutationFn: (newVote: { score: number }) =>
       postMutationFetcher(`/api/submissions/${submission.id}/votes`, { body: newVote }),
   });
+  const { mutateAsync: postNewEligible } = useMutation({
+    mutationFn: (newEligible: { eligible: boolean; clear: boolean }) =>
+      postMutationFetcher(`/api/submissions/${submission.id}/eligible`, { body: newEligible }),
+  });
   const { refresh } = useRouter();
 
   const clientFormAction = async (formData: FormData) => {
@@ -80,6 +84,36 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
     }
   };
 
+  const setEligible = async (newEligible: boolean) => {
+    try {
+      const result = await postNewEligible({ eligible: newEligible, clear: false });
+
+      notification.success(result.message);
+      refresh();
+    } catch (error: any) {
+      if (error instanceof Error) {
+        notification.error(error.message);
+        return;
+      }
+      notification.error("Something went wrong");
+    }
+  };
+
+  const clearEligible = async () => {
+    try {
+      const result = await postNewEligible({ eligible: false, clear: true });
+
+      notification.success(result.message);
+      refresh();
+    } catch (error: any) {
+      if (error instanceof Error) {
+        notification.error(error.message);
+        return;
+      }
+      notification.error("Something went wrong");
+    }
+  };
+
   const scoreAvg =
     submission.votes.length > 0
       ? (submission.votes.map(vote => vote.score).reduce((a, b) => a + b, 0) / submission.votes.length).toFixed(2)
@@ -91,9 +125,60 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
 
   return (
     <div key={submission.id} className="card bg-secondary text-secondary-content border border-primary rounded-none">
-      <div className="card-body p-5 xl:p-6">
-        <h2 className="card-title mb-4 text-2xl xl:text-3xl">{submission.title}</h2>
+      <div className="card-body p-4">
+        <h2 className="card-title mb-3 xl:text-2xl">{submission.title}</h2>
         <div className="flex flex-wrap justify-between items-center gap-4">
+          <div className="flex items-center mb-4">
+            <input
+              type="radio"
+              id={`eligible_${submission.id}_false`}
+              name={`eligible_${submission.id}`}
+              className="radio"
+              checked={submission.eligible === false}
+              onChange={() => setEligible(false)}
+            />
+            {submission.eligible === false ? (
+              <div
+                className="tooltip"
+                data-tip={`Set by ${submission.eligibleAdmin} on ${submission.eligibleTimestamp ? getFormattedDateTime(new Date(submission.eligibleTimestamp)) : ""}`}
+              >
+                <label className="mr-4 ml-1" htmlFor={`eligible_${submission.id}_false`}>
+                  Not eligible
+                </label>
+              </div>
+            ) : (
+              <label className="mr-4 ml-1" htmlFor={`eligible_${submission.id}_false`}>
+                Not eligible
+              </label>
+            )}
+            <input
+              type="radio"
+              id={`eligible_${submission.id}_true`}
+              name={`eligible_${submission.id}`}
+              className="radio"
+              checked={submission.eligible === true}
+              onChange={() => setEligible(true)}
+            />
+            {submission.eligible === true ? (
+              <div
+                className="tooltip"
+                data-tip={`Set by ${submission.eligibleAdmin} on ${submission.eligibleTimestamp ? getFormattedDateTime(new Date(submission.eligibleTimestamp)) : ""}`}
+              >
+                <label className="mr-4 ml-1" htmlFor={`eligible_${submission.id}_true`}>
+                  Eligible
+                </label>
+              </div>
+            ) : (
+              <label className="mr-4 ml-1" htmlFor={`eligible_${submission.id}_true`}>
+                Eligible
+              </label>
+            )}
+            {submission.eligible !== undefined && (
+              <button className="cursor-pointer underline text-sm ml-3" onClick={clearEligible}>
+                Clear
+              </button>
+            )}
+          </div>
           <div className="mt-1 flex shrink-0 gap-3">
             {submission.linkToRepository && (
               <a href={submission.linkToRepository} className="inline-block" target="_blank">
@@ -118,7 +203,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
         <p>{submission.description}</p>
         {submission.feedback && <p>Extensions feedback: {submission.feedback}</p>}
 
-        <div className="flex mb-4 items-center">
+        <div className="flex items-center">
           <div className="rating flex items-center">
             <input
               type="radio"
@@ -149,7 +234,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
 
         <div className="collapse">
           <input type="checkbox" />
-          <div className="collapse-title text-xl font-medium">{submission.comments.length} comments</div>
+          <div className="collapse-title text-lg font-medium">{submission.comments.length} comments</div>
           <div className="collapse-content">
             {submission.comments?.map(comment => (
               <div key={comment.id} className="card bg-base-200 text-base-content mb-4">
@@ -177,8 +262,8 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
             </div>
           </div>
         </div>
-        <div className="badge badge-accent flex flex-col p-8 border border-accent-content">
-          <div className="text-2xl font-bold">{scoreAvg}</div>
+        <div className="badge badge-accent flex flex-col p-7 px-5 border border-accent-content">
+          <div className="text-xl font-bold leading-tight">{scoreAvg}</div>
           <div>{submission.votes.length} votes</div>
         </div>
       </div>
