@@ -21,7 +21,7 @@ export const Submissions = async () => {
   );
 
   return (
-    <div className="px-6">
+    <div className="max-w-7xl mx-auto px-6">
       <div role="tablist" className="tabs tabs-bordered tabs-lg bg-white">
         <input
           type="radio"
