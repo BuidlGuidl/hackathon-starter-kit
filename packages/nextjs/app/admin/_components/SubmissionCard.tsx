@@ -1,11 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { SubmissionComments, getFormattedDateTime } from "./SubmissionComments";
+import { SubmissionComments } from "./SubmissionComments";
 import { useMutation } from "@tanstack/react-query";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
 import { Submission } from "~~/services/database/repositories/submissions";
+import { getFormattedDateTime } from "~~/utils/date";
 import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
 
