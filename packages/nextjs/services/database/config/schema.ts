@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { integer, pgTable, primaryKey, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, pgTable, primaryKey, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const builders = pgTable("builders", {
   id: varchar("id", { length: 256 }).primaryKey(),
@@ -20,6 +20,9 @@ export const submissions = pgTable("submissions", {
   builder: varchar("builder_id", { length: 256 })
     .references(() => builders.id)
     .notNull(),
+  eligible: boolean("eligible"),
+  eligibleTimestamp: timestamp("eligible_timestamp"),
+  eligibleAdmin: varchar("eligible_admin", { length: 256 }),
 });
 
 export const comments = pgTable("comments", {
