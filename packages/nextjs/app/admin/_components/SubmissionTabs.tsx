@@ -26,6 +26,8 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
     },
   );
 
+  const skeletonClasses = "skeleton rounded-none w-full h-96 border border-primary";
+
   return (
     <div className="max-w-7xl container mx-auto px-6">
       <div role="tablist" className="tabs tabs-bordered tabs-lg">
@@ -39,9 +41,17 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
         />
         <div role="tabpanel" className="tab-content py-6">
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {notVoted.map(submission => {
-              return <SubmissionCard key={submission.id} submission={submission} />;
-            })}
+            {!connectedAddress && (
+              <>
+                <div className={skeletonClasses}></div>
+                <div className={skeletonClasses}></div>
+                <div className={skeletonClasses}></div>
+              </>
+            )}
+            {connectedAddress &&
+              notVoted.map(submission => {
+                return <SubmissionCard key={submission.id} submission={submission} />;
+              })}
           </div>
         </div>
 
