@@ -26,7 +26,7 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
     },
   );
 
-  const skeletonClasses = "skeleton rounded-none w-full h-96 border border-primary";
+  const skeletonClasses = "animate-pulse bg-gray-200 rounded-none w-full h-96";
 
   return (
     <div className="max-w-7xl container mx-auto px-6">
