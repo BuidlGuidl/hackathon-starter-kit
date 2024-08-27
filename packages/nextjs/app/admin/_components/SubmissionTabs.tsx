@@ -4,6 +4,8 @@ import { SubmissionCard } from "./SubmissionCard";
 import { useAccount } from "wagmi";
 import { Submission } from "~~/services/database/repositories/submissions";
 
+const skeletonClasses = "animate-pulse bg-gray-200 rounded-none w-full h-96";
+
 export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) => {
   const { address: connectedAddress } = useAccount();
 
@@ -26,8 +28,6 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
     },
   );
 
-  const skeletonClasses = "animate-pulse bg-gray-200 rounded-none w-full h-96";
-
   return (
     <div className="max-w-7xl container mx-auto px-6">
       <div role="tablist" className="tabs tabs-bordered tabs-lg">
@@ -41,17 +41,17 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
         />
         <div role="tabpanel" className="tab-content py-6">
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {!connectedAddress && (
+            {!connectedAddress ? (
               <>
                 <div className={skeletonClasses}></div>
                 <div className={skeletonClasses}></div>
                 <div className={skeletonClasses}></div>
               </>
-            )}
-            {connectedAddress &&
+            ) : (
               notVoted.map(submission => {
                 return <SubmissionCard key={submission.id} submission={submission} />;
-              })}
+              })
+            )}
           </div>
         </div>
 
