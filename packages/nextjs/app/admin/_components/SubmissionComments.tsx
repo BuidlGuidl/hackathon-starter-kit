@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
 import { Submission } from "~~/services/database/repositories/submissions";
 import { getFormattedDateTime } from "~~/utils/date";
@@ -63,7 +64,16 @@ export const SubmissionComments = ({ submission }: { submission: Submission }) =
           className="drawer-overlay"
         ></label>
         <div className="bg-base-200 text-base-content min-h-full w-96 py-4 px-5">
-          <h3 className="font-bold text-lg">{submission.title}</h3>
+          <div className="flex justify-between items-start gap-2">
+            <h3 className="font-bold text-lg">{submission.title}</h3>
+            <label
+              htmlFor={`comments_drawer_${submission.id}`}
+              aria-label="close sidebar"
+              className="px-1 btn btn-sm rounded-full bg-white border border-gray-200"
+            >
+              <XMarkIcon className="w-5 h-5" />
+            </label>
+          </div>
           {submission.comments?.map(comment => (
             <div
               key={comment.id}
