@@ -84,7 +84,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
   const telegramUser = submission.telegram?.replace("@", "");
 
   return (
-    <div key={submission.id} className="card bg-secondary text-secondary-content border border-primary rounded-none">
+    <div key={submission.id} className="card bg-base-200 text-secondary-content border border-gray-300 rounded-none">
       <div className="card-body p-4">
         <h2 className="card-title mb-3 xl:text-2xl">{submission.title}</h2>
         <div className="flex flex-wrap justify-between items-center gap-4">
