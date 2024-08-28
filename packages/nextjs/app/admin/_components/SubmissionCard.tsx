@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { SubmissionComments } from "./SubmissionComments";
+import "./submission-rating.css";
 import { useMutation } from "@tanstack/react-query";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
@@ -176,7 +177,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
               <input
                 type="radio"
                 name={`rating_${submission.id}`}
-                className="mask mask-star"
+                className="mask mask-star-2 star bg-gray-400 peer peer-hover:bg-gray-400"
                 title={(i + 1).toString()}
                 checked={score === i + 1}
                 key={i}

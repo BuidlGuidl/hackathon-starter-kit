@@ -1,0 +1,20 @@
+.rating input:checked ~ input,
+.rating input[aria-checked="true"] ~ input {
+    --tw-bg-opacity: 1;
+}
+
+.rating:hover .star {
+    @apply bg-amber-500;
+}
+
+.rating:hover .star.peer:hover ~ .peer-hover\:bg-gray-400 {
+    @apply bg-gray-400;
+}
+
+.rating input[type=radio]:checked {
+    @apply bg-amber-500;
+}
+
+.rating *:has(+ input[type=radio]:checked) {
+    @apply bg-amber-500;
+}
