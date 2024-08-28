@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { SubmissionComments } from "./SubmissionComments";
+import "./submission-rating.css";
 import { useMutation } from "@tanstack/react-query";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
@@ -83,7 +84,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
   const telegramUser = submission.telegram?.replace("@", "");
 
   return (
-    <div key={submission.id} className="card bg-secondary text-secondary-content border border-primary rounded-none">
+    <div key={submission.id} className="card bg-base-200 text-secondary-content border border-gray-300 rounded-none">
       <div className="card-body p-4">
         <h2 className="card-title mb-3 xl:text-2xl">{submission.title}</h2>
         <div className="flex flex-wrap justify-between items-center gap-4">
@@ -162,7 +163,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
         <p>{submission.description}</p>
         {submission.feedback && <p>Extensions feedback: {submission.feedback}</p>}
 
-        <div className="flex items-center">
+        <div className="flex items-center justify-between">
           <div className="rating flex items-center">
             <input
               type="radio"
@@ -176,26 +177,30 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
               <input
                 type="radio"
                 name={`rating_${submission.id}`}
-                className="mask mask-star"
+                className="mask mask-star-2 star bg-amber-500 peer peer-hover:bg-amber-400"
                 title={(i + 1).toString()}
                 checked={score === i + 1}
                 key={i}
                 onChange={() => vote(i + 1)}
               />
             ))}
-            {score > 0 && (
-              <label className="cursor-pointer underline text-sm ml-3" htmlFor={`rating_${submission.id}_0`}>
-                Clear
-              </label>
-            )}
           </div>
+          {score > 0 && (
+            <label
+              className="cursor-pointer underline text-sm ml-3 hover:no-underline"
+              htmlFor={`rating_${submission.id}_0`}
+            >
+              Clear
+            </label>
+          )}
         </div>
 
-        <SubmissionComments submission={submission} />
-
-        <div className="badge badge-accent flex flex-col p-8 border border-accent-content">
-          <div className="text-2xl font-bold">{scoreAvg}</div>
-          <div>{submission.votes.length} votes</div>
+        <div className="mt-4 flex items-center justify-between">
+          <div className="badge badge-accent flex flex-col shrink-0 p-8 border border-accent-content">
+            <div className="text-2xl font-bold">{scoreAvg}</div>
+            <div>{submission.votes.length} votes</div>
+          </div>
+          <SubmissionComments submission={submission} />
         </div>
       </div>
     </div>
