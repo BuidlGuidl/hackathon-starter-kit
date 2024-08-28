@@ -28,6 +28,9 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
     },
   );
 
+  const votedLabel = connectedAddress ? `Voted (${voted.length})` : "Voted (0)";
+  const notVotedLabel = connectedAddress ? `Not Voted (${notVoted.length})` : "Not Voted (0)";
+
   return (
     <div className="max-w-7xl container mx-auto px-6">
       <div role="tablist" className="tabs tabs-bordered tabs-lg">
@@ -36,7 +39,7 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
           name="submission_tabs"
           role="tab"
           className="tab whitespace-nowrap"
-          aria-label="Not Voted"
+          aria-label={notVotedLabel}
           defaultChecked
         />
         <div role="tabpanel" className="tab-content py-6">
@@ -55,7 +58,13 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
           </div>
         </div>
 
-        <input type="radio" name="submission_tabs" role="tab" className="tab whitespace-nowrap" aria-label="Voted" />
+        <input
+          type="radio"
+          name="submission_tabs"
+          role="tab"
+          className="tab whitespace-nowrap"
+          aria-label={votedLabel}
+        />
         <div role="tabpanel" className="tab-content py-6">
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {voted.map(submission => {
