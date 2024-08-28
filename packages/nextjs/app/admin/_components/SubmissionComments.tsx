@@ -47,7 +47,7 @@ export const SubmissionComments = ({ submission }: { submission: Submission }) =
   };
 
   return (
-    <div className="drawer drawer-end">
+    <div className="drawer drawer-end w-auto">
       <input id={`comments_drawer_${submission.id}`} type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <label

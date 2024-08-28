@@ -163,7 +163,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
         <p>{submission.description}</p>
         {submission.feedback && <p>Extensions feedback: {submission.feedback}</p>}
 
-        <div className="flex items-center">
+        <div className="flex items-center justify-between">
           <div className="rating flex items-center">
             <input
               type="radio"
@@ -184,19 +184,23 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
                 onChange={() => vote(i + 1)}
               />
             ))}
-            {score > 0 && (
-              <label className="cursor-pointer underline text-sm ml-3" htmlFor={`rating_${submission.id}_0`}>
-                Clear
-              </label>
-            )}
           </div>
+          {score > 0 && (
+            <label
+              className="cursor-pointer underline text-sm ml-3 hover:no-underline"
+              htmlFor={`rating_${submission.id}_0`}
+            >
+              Clear
+            </label>
+          )}
         </div>
 
-        <SubmissionComments submission={submission} />
-
-        <div className="badge badge-accent flex flex-col p-8 border border-accent-content">
-          <div className="text-2xl font-bold">{scoreAvg}</div>
-          <div>{submission.votes.length} votes</div>
+        <div className="mt-4 flex items-center justify-between">
+          <div className="badge badge-accent flex flex-col shrink-0 p-8 border border-accent-content">
+            <div className="text-2xl font-bold">{scoreAvg}</div>
+            <div>{submission.votes.length} votes</div>
+          </div>
+          <SubmissionComments submission={submission} />
         </div>
       </div>
     </div>
