@@ -5,6 +5,7 @@ import { SubmissionComments } from "./SubmissionComments";
 import { SubmissionEligible } from "./SubmissionEligible";
 import "./submission-rating.css";
 import { useMutation } from "@tanstack/react-query";
+import clsx from "clsx";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
 import { Submission } from "~~/services/database/repositories/submissions";
@@ -14,7 +15,7 @@ import { notification } from "~~/utils/scaffold-eth";
 export const SubmissionCard = ({ submission }: { submission: Submission }) => {
   const { address: connectedAddress } = useAccount();
 
-  const { mutateAsync: postNewVote } = useMutation({
+  const { mutateAsync: postNewVote, isPending: isVotePending } = useMutation({
     mutationFn: (newVote: { score: number }) =>
       postMutationFetcher(`/api/submissions/${submission.id}/votes`, { body: newVote }),
   });
@@ -104,12 +105,17 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
             ))}
           </div>
           {score > 0 && (
-            <label
-              className="cursor-pointer underline text-sm ml-3 hover:no-underline"
-              htmlFor={`rating_${submission.id}_0`}
-            >
-              Clear
-            </label>
+            <div className="flex items-center">
+              {isVotePending && <span className="loading loading-xs"></span>}
+              <label
+                className={clsx("cursor-pointer underline text-sm ml-2 hover:no-underline", {
+                  "text-gray-400 cursor-not-allowed": isVotePending,
+                })}
+                htmlFor={`rating_${submission.id}_0`}
+              >
+                Clear
+              </label>
+            </div>
           )}
         </div>
 
