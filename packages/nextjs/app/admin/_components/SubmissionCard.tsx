@@ -2,25 +2,22 @@
 
 import { useRouter } from "next/navigation";
 import { SubmissionComments } from "./SubmissionComments";
+import { SubmissionEligible } from "./SubmissionEligible";
 import "./submission-rating.css";
 import { useMutation } from "@tanstack/react-query";
+import clsx from "clsx";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
 import { Submission } from "~~/services/database/repositories/submissions";
-import { getFormattedDateTime } from "~~/utils/date";
 import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
 
 export const SubmissionCard = ({ submission }: { submission: Submission }) => {
   const { address: connectedAddress } = useAccount();
 
-  const { mutateAsync: postNewVote } = useMutation({
+  const { mutateAsync: postNewVote, isPending: isVotePending } = useMutation({
     mutationFn: (newVote: { score: number }) =>
       postMutationFetcher(`/api/submissions/${submission.id}/votes`, { body: newVote }),
-  });
-  const { mutateAsync: postNewEligible } = useMutation({
-    mutationFn: (newEligible: { eligible: boolean; clear: boolean }) =>
-      postMutationFetcher(`/api/submissions/${submission.id}/eligible`, { body: newEligible }),
   });
   const { refresh } = useRouter();
 
@@ -44,36 +41,6 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
     }
   };
 
-  const setEligible = async (newEligible: boolean) => {
-    try {
-      const result = await postNewEligible({ eligible: newEligible, clear: false });
-
-      notification.success(result.message);
-      refresh();
-    } catch (error: any) {
-      if (error instanceof Error) {
-        notification.error(error.message);
-        return;
-      }
-      notification.error("Something went wrong");
-    }
-  };
-
-  const clearEligible = async () => {
-    try {
-      const result = await postNewEligible({ eligible: false, clear: true });
-
-      notification.success(result.message);
-      refresh();
-    } catch (error: any) {
-      if (error instanceof Error) {
-        notification.error(error.message);
-        return;
-      }
-      notification.error("Something went wrong");
-    }
-  };
-
   const scoreAvg =
     submission.votes.length > 0
       ? (submission.votes.map(vote => vote.score).reduce((a, b) => a + b, 0) / submission.votes.length).toFixed(2)
@@ -85,60 +52,10 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
 
   return (
     <div key={submission.id} className="card bg-base-200 text-secondary-content border border-gray-300 rounded-none">
-      <div className="card-body p-4">
+      <SubmissionEligible submission={submission} />
+      <div className="card-body p-4 pt-6">
         <h2 className="card-title mb-3 xl:text-2xl">{submission.title}</h2>
         <div className="flex flex-wrap justify-between items-center gap-4">
-          <div className="flex items-center mb-4">
-            <input
-              type="radio"
-              id={`eligible_${submission.id}_false`}
-              name={`eligible_${submission.id}`}
-              className="radio"
-              checked={submission.eligible === false}
-              onChange={() => setEligible(false)}
-            />
-            {submission.eligible === false ? (
-              <div
-                className="tooltip"
-                data-tip={`Set by ${submission.eligibleAdmin} on ${submission.eligibleTimestamp ? getFormattedDateTime(new Date(submission.eligibleTimestamp)) : ""}`}
-              >
-                <label className="mr-4 ml-1" htmlFor={`eligible_${submission.id}_false`}>
-                  Not eligible
-                </label>
-              </div>
-            ) : (
-              <label className="mr-4 ml-1" htmlFor={`eligible_${submission.id}_false`}>
-                Not eligible
-              </label>
-            )}
-            <input
-              type="radio"
-              id={`eligible_${submission.id}_true`}
-              name={`eligible_${submission.id}`}
-              className="radio"
-              checked={submission.eligible === true}
-              onChange={() => setEligible(true)}
-            />
-            {submission.eligible === true ? (
-              <div
-                className="tooltip"
-                data-tip={`Set by ${submission.eligibleAdmin} on ${submission.eligibleTimestamp ? getFormattedDateTime(new Date(submission.eligibleTimestamp)) : ""}`}
-              >
-                <label className="mr-4 ml-1" htmlFor={`eligible_${submission.id}_true`}>
-                  Eligible
-                </label>
-              </div>
-            ) : (
-              <label className="mr-4 ml-1" htmlFor={`eligible_${submission.id}_true`}>
-                Eligible
-              </label>
-            )}
-            {submission.eligible !== undefined && (
-              <button className="cursor-pointer underline text-sm ml-3" onClick={clearEligible}>
-                Clear
-              </button>
-            )}
-          </div>
           <div className="mt-1 flex shrink-0 gap-3">
             {submission.linkToRepository && (
               <a href={submission.linkToRepository} className="inline-block" target="_blank">
@@ -161,7 +78,9 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
         </div>
 
         <p>{submission.description}</p>
-        {submission.feedback && <p>Extensions feedback: {submission.feedback}</p>}
+        {submission.feedback && <p>Extensions Feedback: {submission.feedback}</p>}
+
+        <div className="divider my-0" />
 
         <div className="flex items-center justify-between">
           <div className="rating flex items-center">
@@ -186,16 +105,21 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
             ))}
           </div>
           {score > 0 && (
-            <label
-              className="cursor-pointer underline text-sm ml-3 hover:no-underline"
-              htmlFor={`rating_${submission.id}_0`}
-            >
-              Clear
-            </label>
+            <div className="flex items-center gap-2">
+              {isVotePending && <span className="loading loading-xs"></span>}
+              <label
+                className={clsx("cursor-pointer underline text-sm hover:no-underline", {
+                  "text-gray-400 cursor-not-allowed": isVotePending,
+                })}
+                htmlFor={`rating_${submission.id}_0`}
+              >
+                Clear
+              </label>
+            </div>
           )}
         </div>
 
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-3 flex items-center justify-between">
           <div className="badge badge-accent flex flex-col shrink-0 p-8 border border-accent-content">
             <div className="text-2xl font-bold">{scoreAvg}</div>
             <div>{submission.votes.length} votes</div>

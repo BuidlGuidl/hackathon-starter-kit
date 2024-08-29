@@ -55,6 +55,11 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
                 return <SubmissionCard key={submission.id} submission={submission} />;
               })
             )}
+            {notVoted.length === 0 && (
+              <div role="alert" className="alert col-span-2">
+                <span>There are no submissions to vote on.</span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -67,6 +72,11 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
         />
         <div role="tabpanel" className="tab-content py-6">
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {voted.length === 0 && (
+              <div role="alert" className="alert col-span-2">
+                <span>You have not voted on any submissions yet.</span>
+              </div>
+            )}
             {voted.map(submission => {
               return <SubmissionCard key={submission.id} submission={submission} />;
             })}
