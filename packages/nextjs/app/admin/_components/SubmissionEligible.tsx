@@ -47,6 +47,7 @@ export const SubmissionEligible = ({ submission }: { submission: Submission }) =
     try {
       const result = await postNewEligible({ eligible: false, clear: true });
 
+      closeDropdown();
       notification.success(result.message);
       refresh();
     } catch (error: any) {
