@@ -13,7 +13,7 @@ import { notification } from "~~/utils/scaffold-eth";
 const eligibleLabelStyles = "label cursor-pointer text-sm justify-start gap-2";
 
 export const SubmissionEligible = ({ submission }: { submission: Submission }) => {
-  const { mutateAsync: postNewEligible } = useMutation({
+  const { mutateAsync: postNewEligible, isPending } = useMutation({
     mutationFn: (newEligible: { eligible: boolean; clear: boolean }) =>
       postMutationFetcher(`/api/submissions/${submission.id}/eligible`, { body: newEligible }),
   });
@@ -101,9 +101,17 @@ export const SubmissionEligible = ({ submission }: { submission: Submission }) =
           </div>
           <div className="flex items-center justify-between gap-3 p-2">
             {submission.eligible !== undefined && (
-              <button className="cursor-pointer underline text-sm hover:no-underline" onClick={clearEligible}>
-                Clear
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  className={clsx("cursor-pointer underline text-sm hover:no-underline", {
+                    "text-gray-400 cursor-not-allowed": isPending,
+                  })}
+                  onClick={clearEligible}
+                >
+                  Clear
+                </button>
+                {isPending && <span className="loading loading-xs"></span>}
+              </div>
             )}
 
             {submission.eligible === false && (

@@ -105,10 +105,10 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
             ))}
           </div>
           {score > 0 && (
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
               {isVotePending && <span className="loading loading-xs"></span>}
               <label
-                className={clsx("cursor-pointer underline text-sm ml-2 hover:no-underline", {
+                className={clsx("cursor-pointer underline text-sm hover:no-underline", {
                   "text-gray-400 cursor-not-allowed": isVotePending,
                 })}
                 htmlFor={`rating_${submission.id}_0`}
