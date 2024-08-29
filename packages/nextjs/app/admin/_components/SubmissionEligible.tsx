@@ -12,6 +12,14 @@ import { notification } from "~~/utils/scaffold-eth";
 
 const eligibleLabelStyles = "label cursor-pointer text-sm justify-start gap-2";
 
+// Close the dropdown by blurring the active element
+const closeDropdown = () => {
+  const elem = document.activeElement;
+  if (elem instanceof HTMLElement) {
+    elem.blur();
+  }
+};
+
 export const SubmissionEligible = ({ submission }: { submission: Submission }) => {
   const { mutateAsync: postNewEligible, isPending } = useMutation({
     mutationFn: (newEligible: { eligible: boolean; clear: boolean }) =>
@@ -23,6 +31,7 @@ export const SubmissionEligible = ({ submission }: { submission: Submission }) =
     try {
       const result = await postNewEligible({ eligible: newEligible, clear: false });
 
+      closeDropdown();
       notification.success(result.message);
       refresh();
     } catch (error: any) {
@@ -58,8 +67,10 @@ export const SubmissionEligible = ({ submission }: { submission: Submission }) =
   }
 
   return (
-    <details className="dropdown dropdown-end">
-      <summary
+    <div className="dropdown dropdown-end">
+      <div
+        tabIndex={0}
+        role="button"
         className={clsx("absolute top-0 right-0 btn btn-xs border-0 font-medium text-gray-200 tracking-tighter", {
           "text-gray-600 bg-gray-300 hover:bg-gray-400": submission.eligible === null,
           "bg-red-800 hover:bg-red-700": submission.eligible === false,
@@ -67,7 +78,7 @@ export const SubmissionEligible = ({ submission }: { submission: Submission }) =
         })}
       >
         {buttonLabel}
-      </summary>
+      </div>
       <div
         tabIndex={0}
         className="dropdown-content bg-base-100 z-[1] w-auto py-2 px-3 top-7 border border-gray-200 shadow"
@@ -134,6 +145,6 @@ export const SubmissionEligible = ({ submission }: { submission: Submission }) =
           </div>
         </div>
       </div>
-    </details>
+    </div>
   );
 };
