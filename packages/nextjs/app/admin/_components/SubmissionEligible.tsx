@@ -57,8 +57,6 @@ export const SubmissionEligible = ({ submission }: { submission: Submission }) =
     buttonLabel = "Eligible";
   }
 
-  console.log("submission", submission.eligible);
-
   return (
     <details className="dropdown dropdown-end">
       <summary
