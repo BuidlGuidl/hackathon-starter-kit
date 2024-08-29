@@ -28,8 +28,8 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
     },
   );
 
-  const votedLabel = connectedAddress ? `Voted (${voted.length})` : "Voted (0)";
-  const notVotedLabel = connectedAddress ? `Not Voted (${notVoted.length})` : "Not Voted (0)";
+  const votedLabel = connectedAddress ? `Voted (${voted.length})` : "Voted (-)";
+  const notVotedLabel = connectedAddress ? `Not Voted (${notVoted.length})` : "Not Voted (-)";
 
   return (
     <div className="max-w-7xl container mx-auto px-6">
