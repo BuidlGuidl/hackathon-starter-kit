@@ -96,7 +96,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
               <input
                 type="radio"
                 name={`rating_${submission.id}`}
-                className="mask mask-star-2 star bg-amber-500 peer peer-hover:bg-amber-400 disabled:bg-gray-200 disabled:pointer-events-none disabled:cursor-not-allowed"
+                className="mask mask-star-2 star bg-amber-500 peer peer-hover:bg-amber-400 disabled:bg-gray-200 disabled:pointer-events-none"
                 title={(i + 1).toString()}
                 checked={score === i + 1}
                 key={i}
