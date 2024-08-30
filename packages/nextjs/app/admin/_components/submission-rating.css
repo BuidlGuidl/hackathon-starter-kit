@@ -5,6 +5,9 @@
 .rating:hover .star {
     @apply bg-amber-500;
 }
+.rating:hover .star:disabled {
+    @apply bg-gray-200;
+}
 
 .rating:hover .star.peer:hover ~ .peer-hover\:bg-amber-400 {
     @apply bg-amber-500 bg-opacity-20;
