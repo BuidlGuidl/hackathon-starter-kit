@@ -82,7 +82,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
 
         <div className="divider my-0" />
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
           <div className="rating flex items-center">
             <input
               type="radio"
@@ -96,26 +96,25 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
               <input
                 type="radio"
                 name={`rating_${submission.id}`}
-                className="mask mask-star-2 star bg-amber-500 peer peer-hover:bg-amber-400"
+                className="mask mask-star-2 star bg-amber-500 peer peer-hover:bg-amber-400 disabled:bg-gray-200 disabled:pointer-events-none"
                 title={(i + 1).toString()}
                 checked={score === i + 1}
                 key={i}
                 onChange={() => vote(i + 1)}
+                disabled={isVotePending}
               />
             ))}
           </div>
+          {isVotePending && <span className="loading loading-xs"></span>}
           {score > 0 && (
-            <div className="flex items-center gap-2">
-              {isVotePending && <span className="loading loading-xs"></span>}
-              <label
-                className={clsx("cursor-pointer underline text-sm hover:no-underline", {
-                  "text-gray-400 cursor-not-allowed": isVotePending,
-                })}
-                htmlFor={`rating_${submission.id}_0`}
-              >
-                Clear
-              </label>
-            </div>
+            <label
+              className={clsx("ml-auto cursor-pointer underline text-sm hover:no-underline", {
+                "text-gray-400 cursor-not-allowed": isVotePending,
+              })}
+              htmlFor={`rating_${submission.id}_0`}
+            >
+              Clear
+            </label>
           )}
         </div>
 
