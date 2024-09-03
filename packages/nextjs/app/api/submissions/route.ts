@@ -26,6 +26,11 @@ export type CreateNewSubmissionBody = SubmissionInsert & { signature: `0x${strin
 
 export async function POST(req: Request) {
   try {
+    const isSubmissionClosed = true;
+    if (isSubmissionClosed) {
+      return NextResponse.json({ error: "Submissions are closed" }, { status: 403 });
+    }
+
     const { title, description, telegram, linkToRepository, linkToVideo, feedback, signature, builder } =
       (await req.json()) as CreateNewSubmissionBody;
 
