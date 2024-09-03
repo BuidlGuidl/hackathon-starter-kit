@@ -27,7 +27,7 @@ export type CreateNewSubmissionBody = SubmissionInsert & { signature: `0x${strin
 export async function POST(req: Request) {
   try {
     const submissionDeadline = new Date(process.env.NEXT_PUBLIC_SUBMISSION_DEADLINE || "");
-    if (isNaN(submissionDeadline.getTime()) || new Date() > submissionDeadline) {
+    if (isNaN(submissionDeadline.getTime()) || Date.now() > submissionDeadline.getTime()) {
       return NextResponse.json({ error: "Submissions are closed" }, { status: 403 });
     }
 

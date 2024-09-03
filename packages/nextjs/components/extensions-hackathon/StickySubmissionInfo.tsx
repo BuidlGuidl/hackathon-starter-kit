@@ -4,7 +4,7 @@ import Link from "next/link";
 export const StickySubmissionInfo = () => {
   const [isVisible, setIsVisible] = useState(true);
   const submissionDeadline = new Date(process.env.NEXT_PUBLIC_SUBMISSION_DEADLINE || "");
-  const isSubmissionClosed = isNaN(submissionDeadline.getTime()) || new Date() > submissionDeadline;
+  const isSubmissionClosed = isNaN(submissionDeadline.getTime()) || Date.now() > submissionDeadline.getTime();
 
   if (!isVisible) {
     return (
