@@ -8,11 +8,11 @@ import { useMutation } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
-import { Submission } from "~~/services/database/repositories/submissions";
+import { SubmissionWithAvg } from "~~/services/database/repositories/submissions";
 import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
 
-export const SubmissionCard = ({ submission }: { submission: Submission }) => {
+export const SubmissionCard = ({ submission }: { submission: SubmissionWithAvg }) => {
   const { address: connectedAddress } = useAccount();
 
   const { mutateAsync: postNewVote, isPending: isVotePending } = useMutation({
@@ -41,10 +41,8 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
     }
   };
 
-  const scoreAvg =
-    submission.votes.length > 0
-      ? (submission.votes.map(vote => vote.score).reduce((a, b) => a + b, 0) / submission.votes.length).toFixed(2)
-      : "-";
+  const scoreAvg = submission.avgScore === 0 ? "-" : submission.avgScore.toFixed(2);
+
   const currentVote = submission.votes.find(vote => vote.builder === connectedAddress);
   const score = currentVote ? currentVote.score : 0;
 
