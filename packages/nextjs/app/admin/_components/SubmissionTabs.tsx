@@ -2,7 +2,7 @@
 
 import { SubmissionCard } from "./SubmissionCard";
 import { useAccount } from "wagmi";
-import { Submission } from "~~/services/database/repositories/submissions";
+import { Submission, SubmissionWithAvg } from "~~/services/database/repositories/submissions";
 
 const skeletonClasses = "animate-pulse bg-gray-200 rounded-none w-full h-96";
 
@@ -14,17 +14,24 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
       // Connected address has voted
       const currentVote = submission.votes.find(vote => vote.builder === connectedAddress);
 
+      const avgScore =
+        submission.votes.length > 0
+          ? submission.votes.map(vote => vote.score).reduce((a, b) => a + b, 0) / submission.votes.length
+          : 0;
+
+      const submissionWithAvg = { ...submission, avgScore };
+
       if (currentVote) {
-        acc.voted.push(submission);
+        acc.voted.push(submissionWithAvg);
       } else {
-        acc.notVoted.push(submission);
+        acc.notVoted.push(submissionWithAvg);
       }
 
       return acc;
     },
     {
-      voted: [] as Submission[],
-      notVoted: [] as Submission[],
+      voted: [] as SubmissionWithAvg[],
+      notVoted: [] as SubmissionWithAvg[],
     },
   );
 
@@ -77,9 +84,11 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
                 <span>You have not voted on any submissions yet.</span>
               </div>
             )}
-            {voted.map(submission => {
-              return <SubmissionCard key={submission.id} submission={submission} />;
-            })}
+            {voted
+              .sort((a, b) => b.avgScore - a.avgScore)
+              .map(submission => {
+                return <SubmissionCard key={submission.id} submission={submission} />;
+              })}
           </div>
         </div>
       </div>

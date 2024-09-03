@@ -6,6 +6,9 @@ export type SubmissionInsert = InferInsertModel<typeof submissions>;
 type Comment = InferInsertModel<typeof comments>;
 type Vote = InferInsertModel<typeof votes>;
 export type Submission = InferSelectModel<typeof submissions> & { comments: Comment[]; votes: Vote[] };
+export type SubmissionWithAvg = Submission & {
+  avgScore: number;
+};
 
 export async function getAllSubmissions() {
   return await db.query.submissions.findMany({
