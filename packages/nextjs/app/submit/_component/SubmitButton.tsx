@@ -7,9 +7,7 @@ import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 const SubmitButton = () => {
   const { pending } = useFormStatus();
   const { isConnected } = useAccount();
-
-  const submissionDeadline = new Date(process.env.NEXT_PUBLIC_SUBMISSION_DEADLINE || "");
-  const isSubmissionClosed = isNaN(submissionDeadline.getTime()) || Date.now() > submissionDeadline.getTime();
+  const isSubmissionClosed = true;
 
   return (
     <div

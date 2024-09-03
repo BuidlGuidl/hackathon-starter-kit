@@ -11,26 +11,13 @@ Before you begin, you need to install the following tools:
 
 ## Development Quickstart
 
-### 0. Set up environment variables
-
-For local development, in your `.env.local` add the following:
-
-```
-NEXT_PUBLIC_SUBMISSION_DEADLINE=YYYY-MM-DDTHH:MM:SS
-```
-
-Replace `YYYY-MM-DDTHH:MM:SS` with the actual deadline (e.g., "2024-03-31T23:59:59", deadline must be in UTC).
-This variable controls the visibility of the apply button and form submissions.
-
-> Note: For a PROD environment, you can set the deadline in the .env file or set the environment variable in your hosting provider.
-
-### 1. Install dependencies
+1. Install dependencies
 
 ```
 yarn install
 ```
 
-### 2. Spin up the Postgres database service + create database + seed
+2. Spin up the Postgres database service + create database + seed
 
 ```
 docker-compose up -d
@@ -40,7 +27,7 @@ yarn seed
 
 See more info about the database in the section below
 
-### 3. Start your NextJS app:
+3. Start your NextJS app:
 
 ```
 yarn start
