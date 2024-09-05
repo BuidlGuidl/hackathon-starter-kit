@@ -1,8 +1,14 @@
 import { SubmissionCard } from "./_components/SubmissionCard";
 import type { NextPage } from "next";
 import { getAllSubmissions } from "~~/services/database/repositories/submissions";
+import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
-const Admin: NextPage = async () => {
+export const metadata = getMetadata({
+  title: "Submissions",
+  description: "Check all the submissions for the SE-2 extensions hackathon.",
+});
+
+const Submissions: NextPage = async () => {
   const submissions = await getAllSubmissions();
 
   return (
@@ -21,4 +27,4 @@ const Admin: NextPage = async () => {
   );
 };
 
-export default Admin;
+export default Submissions;

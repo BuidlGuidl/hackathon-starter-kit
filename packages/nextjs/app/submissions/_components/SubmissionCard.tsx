@@ -1,5 +1,3 @@
-"use client";
-
 import { Address } from "~~/components/scaffold-eth";
 import { Submission } from "~~/services/database/repositories/submissions";
 
