@@ -19,7 +19,7 @@ export const SubmissionCard = ({ submission }: { submission: Submission }) => {
             </a>
           </div>
 
-          {submission.builder && <Address address={submission.builder} />}
+          {submission.builder && <Address address={submission.builder} disableAddressLink />}
         </div>
 
         <p>{submission.description}</p>
