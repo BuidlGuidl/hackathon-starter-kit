@@ -8,11 +8,13 @@ import { useMutation } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
+import scaffoldConfig from "~~/scaffold.config";
 import { SubmissionWithAvg } from "~~/services/database/repositories/submissions";
 import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
 
 export const SubmissionCard = ({ submission }: { submission: SubmissionWithAvg }) => {
+  const { votingEnabled } = scaffoldConfig;
   const { address: connectedAddress } = useAccount();
 
   const { mutateAsync: postNewVote, isPending: isVotePending } = useMutation({
@@ -23,6 +25,11 @@ export const SubmissionCard = ({ submission }: { submission: SubmissionWithAvg }
 
   const vote = async (newScore: number) => {
     try {
+      if (!votingEnabled) {
+        notification.error("Voting is disabled");
+        return;
+      }
+
       if (newScore < 0 || newScore > 10) {
         notification.error("Wrong score");
         return;

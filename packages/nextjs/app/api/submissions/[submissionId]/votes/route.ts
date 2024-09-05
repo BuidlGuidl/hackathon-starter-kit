@@ -1,15 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import scaffoldConfig from "~~/scaffold.config";
 import { createOrUpdateVote, deleteVote } from "~~/services/database/repositories/votes";
 import { authOptions } from "~~/utils/auth";
 
 export async function POST(req: NextRequest, { params }: { params: { submissionId: number } }) {
+  const { votingEnabled } = scaffoldConfig;
   try {
     const session = await getServerSession(authOptions);
 
     if (session?.user.role !== "admin") {
       return NextResponse.json({ error: "Only admins can vote" }, { status: 401 });
     }
+
+    if (!votingEnabled) {
+      return NextResponse.json({ error: "Voting is disabled" }, { status: 400 });
+    }
+
     const { submissionId } = params;
 
     const { score } = (await req.json()) as { score: string };
