@@ -3,7 +3,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Bars3Icon, ChatBubbleLeftEllipsisIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, ChatBubbleLeftEllipsisIcon, DocumentTextIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import { useAuthSession } from "~~/hooks/useAuthSession";
@@ -15,6 +15,11 @@ type HeaderMenuLink = {
 };
 
 export const menuLinks: HeaderMenuLink[] = [
+  {
+    label: "Submissions",
+    href: "/submissions",
+    icon: <DocumentTextIcon className="h-4 w-4" />,
+  },
   {
     label: "Admin",
     href: "/admin",
