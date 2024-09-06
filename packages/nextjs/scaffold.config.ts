@@ -7,6 +7,8 @@ export type ScaffoldConfig = {
   walletConnectProjectId: string;
   onlyLocalBurnerWallet: boolean;
   votingEnabled: boolean;
+  winnersThreshold: number;
+  runnersUpThreshold: number;
 };
 
 const scaffoldConfig = {
@@ -34,6 +36,10 @@ const scaffoldConfig = {
 
   // Enable voting on submissions
   votingEnabled: false,
+
+  // Score threshold for winners and runners up
+  winnersThreshold: 7,
+  runnersUpThreshold: 6,
 } as const satisfies ScaffoldConfig;
 
 export default scaffoldConfig;
