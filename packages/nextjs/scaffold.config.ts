@@ -6,6 +6,7 @@ export type ScaffoldConfig = {
   alchemyApiKey: string;
   walletConnectProjectId: string;
   onlyLocalBurnerWallet: boolean;
+  votingEnabled: boolean;
 };
 
 const scaffoldConfig = {
@@ -30,6 +31,9 @@ const scaffoldConfig = {
 
   // Only show the Burner Wallet when running on hardhat network
   onlyLocalBurnerWallet: true,
+
+  // Enable voting on submissions
+  votingEnabled: false,
 } as const satisfies ScaffoldConfig;
 
 export default scaffoldConfig;
