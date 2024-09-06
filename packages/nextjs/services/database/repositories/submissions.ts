@@ -9,9 +9,6 @@ export type Submission = InferSelectModel<typeof submissions> & { comments: Comm
 export type SubmissionWithAvg = Submission & {
   avgScore: number;
 };
-export type SubmissionWithWinnerTag = Submission & {
-  winnerTag: string | null;
-};
 
 export async function getAllSubmissions() {
   return await db.query.submissions.findMany({
