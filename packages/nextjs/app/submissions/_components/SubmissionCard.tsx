@@ -27,7 +27,7 @@ export const SubmissionCard = ({ submission }: { submission: SubmissionWithWinne
           {submission.builder && <Address address={submission.builder} disableAddressLink />}
         </div>
 
-        <p>{submission.description}</p>
+        <p style={{ wordBreak: "break-word" }}>{submission.description}</p>
       </div>
     </div>
   );
