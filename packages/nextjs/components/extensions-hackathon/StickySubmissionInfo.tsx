@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Link from "next/link";
+import scaffoldConfig from "~~/scaffold.config";
 
 export const StickySubmissionInfo = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const isSubmissionClosed = true;
+  const { submissionsEnabled } = scaffoldConfig;
 
   if (!isVisible) {
     return (
@@ -27,11 +28,11 @@ export const StickySubmissionInfo = () => {
         ✕
       </button>
       <h2 className="text-2xl underline mb-0 md:mb-4 2xl:text-3xl 2xl:mb-6">
-        {isSubmissionClosed ? "Submissions closed" : "Submissions open"}
+        {submissionsEnabled ? "Submissions open" : "Submissions closed"}
       </h2>
       <p className="md:mb-10 mt-2 2xl:text-xl 2xl:mb-12 2xl:mt-4">AUG 20 - SEP 2</p>
       <div className="flex md:block space-x-2 2xl:space-x-4">
-        {!isSubmissionClosed && (
+        {submissionsEnabled && (
           <Link
             href="/submit"
             className="bg-[#B7EBEC] py-2 px-2 sm:px-4 border border-1 border-black text-center flex-1 2xl:py-3 2xl:px-6 text-sm sm:text-base 2xl:text-xl"
