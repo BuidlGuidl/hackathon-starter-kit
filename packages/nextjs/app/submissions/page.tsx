@@ -31,10 +31,10 @@ const Submissions: NextPage = async () => {
       <h2 className="text-2xl font-bold mb-4">🏆 Prize Distribution</h2>
       <ul className="list-disc list-inside ml-3">
         <li className="text-lg">
-          <span className="font-bold">Winner:</span> $1000
+          <span className="font-bold">Winner:</span> $1000 (in ETH)
         </li>
         <li className="text-lg">
-          <span className="font-bold">Finalist:</span> $500
+          <span className="font-bold">Finalist:</span> $500 (in ETH)
         </li>
       </ul>
 
