@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { recoverTypedDataAddress } from "viem";
+import scaffoldConfig from "~~/scaffold.config";
 import { createBuilder, getBuilderById } from "~~/services/database/repositories/builders";
 import { createSubmission, getAllSubmissions } from "~~/services/database/repositories/submissions";
 import { SubmissionInsert } from "~~/services/database/repositories/submissions";
@@ -26,8 +27,8 @@ export type CreateNewSubmissionBody = SubmissionInsert & { signature: `0x${strin
 
 export async function POST(req: Request) {
   try {
-    const isSubmissionClosed = true;
-    if (isSubmissionClosed) {
+    const { submissionsEnabled } = scaffoldConfig;
+    if (!submissionsEnabled) {
       return NextResponse.json({ error: "Submissions are closed" }, { status: 403 });
     }
 

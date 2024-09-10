@@ -9,6 +9,7 @@ export type ScaffoldConfig = {
   votingEnabled: boolean;
   winnersThreshold: number;
   runnersUpThreshold: number;
+  submissionsEnabled: boolean;
 };
 
 const scaffoldConfig = {
@@ -33,6 +34,9 @@ const scaffoldConfig = {
 
   // Only show the Burner Wallet when running on hardhat network
   onlyLocalBurnerWallet: true,
+
+  // Enable submissions
+  submissionsEnabled: false,
 
   // Enable voting on submissions
   votingEnabled: false,
