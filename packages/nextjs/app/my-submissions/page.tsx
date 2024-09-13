@@ -1,31 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SubmissionCard } from "../submissions/_components/SubmissionCard";
 import { useAccount } from "wagmi";
+import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { SubmissionWithWinnerTag } from "~~/services/database/repositories/submissions";
 import { notification } from "~~/utils/scaffold-eth";
 
 const MySubmissions = () => {
   const [submissions, setSubmissions] = useState<SubmissionWithWinnerTag[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const { address: connectedAddress, isConnecting } = useAccount();
   const router = useRouter();
-  const notificationShown = useRef(false);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
-      if (isConnecting) {
+      if (isConnecting || !connectedAddress) {
         return;
       }
 
-      if (!connectedAddress) {
-        setIsLoading(false);
-        return;
-      }
-
-      setIsLoading(true); // Added to prevent showing "no submissions" content before rendering submissions
       try {
         const response = await fetch(`/api/users/${connectedAddress}/submissions`);
         if (!response.ok) {
@@ -36,30 +29,23 @@ const MySubmissions = () => {
       } catch (error) {
         console.error("Error fetching submissions:", error);
         notification.error("Failed to fetch submissions");
-      } finally {
-        setIsLoading(false);
       }
     };
 
     fetchSubmissions();
   }, [connectedAddress, isConnecting]);
 
-  useEffect(() => {
-    if (!isLoading && !connectedAddress && !notificationShown.current) {
-      notificationShown.current = true;
-      notification.error("Please connect your wallet");
-      router.push("/");
-    }
-  }, [isLoading, connectedAddress, router]);
-
-  if (!connectedAddress) {
-    return null;
+  if (isConnecting) {
+    return <div className="max-w-7xl container mx-auto px-6 mt-10">Loading...</div>;
   }
 
   return (
     <div className="max-w-7xl container mx-auto px-6 mt-10">
-      {isLoading ? (
-        <div className="max-w-7xl container mx-auto px-6 mt-10">Loading...</div>
+      {!connectedAddress ? (
+        <div className="max-w-7xl container mx-auto px-6 mt-10">
+          <span className="mr-4">Connect Wallet to see your submissions</span>
+          <RainbowKitCustomConnectButton />
+        </div>
       ) : (
         <div>
           <h1 className="text-4xl font-bold mb-6">My Submissions</h1>
