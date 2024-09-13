@@ -40,11 +40,11 @@ const MySubmissions = () => {
   }, [connectedAddress, router]);
 
   if (isLoading) {
-    return <div className="container mx-auto mt-10">Loading...</div>;
+    return <div className="max-w-7xl container mx-auto px-6 mt-10">Loading...</div>;
   }
 
   return (
-    <div className="container mx-auto mt-10">
+    <div className="max-w-7xl container mx-auto px-6 mt-10">
       <h1 className="text-4xl font-bold mb-6">My Submissions</h1>
       {submissions.length === 0 ? (
         <div className="flex flex-col items-center">
@@ -54,7 +54,7 @@ const MySubmissions = () => {
           </button>
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {submissions.map(submission => (
             <SubmissionCard key={submission.id} submission={submission} />
           ))}
