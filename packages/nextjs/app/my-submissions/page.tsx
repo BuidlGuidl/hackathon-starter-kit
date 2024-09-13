@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SubmissionCard } from "../submissions/_components/SubmissionCard";
 import { useAccount } from "wagmi";
@@ -10,17 +10,22 @@ import { notification } from "~~/utils/scaffold-eth";
 const MySubmissions = () => {
   const [submissions, setSubmissions] = useState<SubmissionWithWinnerTag[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { address: connectedAddress } = useAccount();
+  const { address: connectedAddress, isConnecting } = useAccount();
   const router = useRouter();
+  const notificationShown = useRef(false);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
-      if (!connectedAddress) {
-        notification.error("Please connect your wallet");
-        router.push("/");
+      if (isConnecting) {
         return;
       }
 
+      if (!connectedAddress) {
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(true); // Added to prevent showing "no submissions" content before rendering submissions
       try {
         const response = await fetch(`/api/users/${connectedAddress}/submissions`);
         if (!response.ok) {
@@ -37,27 +42,41 @@ const MySubmissions = () => {
     };
 
     fetchSubmissions();
-  }, [connectedAddress, router]);
+  }, [connectedAddress, isConnecting]);
 
-  if (isLoading) {
-    return <div className="max-w-7xl container mx-auto px-6 mt-10">Loading...</div>;
+  useEffect(() => {
+    if (!isLoading && !connectedAddress && !notificationShown.current) {
+      notificationShown.current = true;
+      notification.error("Please connect your wallet");
+      router.push("/");
+    }
+  }, [isLoading, connectedAddress, router]);
+
+  if (!connectedAddress) {
+    return null;
   }
 
   return (
     <div className="max-w-7xl container mx-auto px-6 mt-10">
-      <h1 className="text-4xl font-bold mb-6">My Submissions</h1>
-      {submissions.length === 0 ? (
-        <div className="flex flex-col items-center">
-          <p className="mb-4">You haven&apos;t made any submissions yet.</p>
-          <button onClick={() => router.push("/submit")} className="btn btn-primary">
-            Submit an Extension
-          </button>
-        </div>
+      {isLoading ? (
+        <div className="max-w-7xl container mx-auto px-6 mt-10">Loading...</div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {submissions.map(submission => (
-            <SubmissionCard key={submission.id} submission={submission} />
-          ))}
+        <div>
+          <h1 className="text-4xl font-bold mb-6">My Submissions</h1>
+          {submissions.length === 0 ? (
+            <div className="flex flex-col items-center">
+              <p className="mb-4">You haven&apos;t made any submissions yet.</p>
+              <button onClick={() => router.push("/submit")} className="btn btn-primary">
+                Submit an Extension
+              </button>
+            </div>
+          ) : (
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {submissions.map(submission => (
+                <SubmissionCard key={submission.id} submission={submission} />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
