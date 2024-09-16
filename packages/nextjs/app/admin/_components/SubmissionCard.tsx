@@ -13,7 +13,7 @@ import { SubmissionWithAvg } from "~~/services/database/repositories/submissions
 import { postMutationFetcher } from "~~/utils/react-query";
 import { notification } from "~~/utils/scaffold-eth";
 
-export const SubmissionCard = ({ submission }: { submission: SubmissionWithAvg }) => {
+export const SubmissionCard = ({ submission, tabName }: { submission: SubmissionWithAvg; tabName: string }) => {
   const { votingEnabled } = scaffoldConfig;
   const { address: connectedAddress } = useAccount();
 
@@ -91,8 +91,8 @@ export const SubmissionCard = ({ submission }: { submission: SubmissionWithAvg }
           <div className="rating flex items-center">
             <input
               type="radio"
-              id={`rating_${submission.id}_0`}
-              name={`rating_${submission.id}`}
+              id={`rating_${tabName}_${submission.id}_0`}
+              name={`rating_${tabName}_${submission.id}`}
               className="rating-hidden"
               checked={score === 0}
               onChange={() => vote(0)}
@@ -100,7 +100,7 @@ export const SubmissionCard = ({ submission }: { submission: SubmissionWithAvg }
             {[...Array(10)].map((_e, i) => (
               <input
                 type="radio"
-                name={`rating_${submission.id}`}
+                name={`rating_${tabName}_${submission.id}`}
                 className="mask mask-star-2 star bg-amber-500 peer peer-hover:bg-amber-400 disabled:bg-gray-200 disabled:pointer-events-none"
                 title={(i + 1).toString()}
                 checked={score === i + 1}
@@ -116,7 +116,7 @@ export const SubmissionCard = ({ submission }: { submission: SubmissionWithAvg }
               className={clsx("ml-auto cursor-pointer underline text-sm hover:no-underline", {
                 "text-gray-400 cursor-not-allowed": isVotePending,
               })}
-              htmlFor={`rating_${submission.id}_0`}
+              htmlFor={`rating_${tabName}_${submission.id}_0`}
             >
               Clear
             </label>
