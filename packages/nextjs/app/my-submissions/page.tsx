@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { SubmissionCard } from "../submissions/_components/SubmissionCard";
 import { useAccount } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import scaffoldConfig from "~~/scaffold.config";
 import { SubmissionWithWinnerTag } from "~~/services/database/repositories/submissions";
 import { notification } from "~~/utils/scaffold-eth";
 
@@ -12,6 +13,7 @@ const MySubmissions = () => {
   const [submissions, setSubmissions] = useState<SubmissionWithWinnerTag[]>([]);
   const { address: connectedAddress, isConnecting } = useAccount();
   const router = useRouter();
+  const { submissionsEnabled } = scaffoldConfig;
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -51,10 +53,21 @@ const MySubmissions = () => {
           <h1 className="text-4xl font-bold mb-6">My Submissions</h1>
           {submissions.length === 0 ? (
             <div className="flex flex-col items-center">
-              <p className="mb-4">You haven&apos;t made any submissions yet.</p>
-              <button onClick={() => router.push("/submit")} className="btn btn-primary">
-                Submit an Extension
-              </button>
+              {submissionsEnabled ? (
+                <>
+                  <p className="mb-4">You haven&apos;t made any submissions yet.</p>
+                  <button onClick={() => router.push("/submit")} className="btn btn-primary">
+                    Submit an Extension
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p className="mb-4">You haven&apos;t made any submissions.</p>
+                  <button className="btn btn-disabled" disabled>
+                    Submissions Closed
+                  </button>
+                </>
+              )}
             </div>
           ) : (
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
