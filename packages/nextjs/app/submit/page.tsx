@@ -6,7 +6,7 @@ const Submit: NextPage = () => {
   const { submissionsEnabled } = scaffoldConfig;
 
   if (!submissionsEnabled) {
-    return <div className="max-w-7xl container mx-auto px-6 mt-10">Submissions Closed</div>;
+    return <div className="flex items-center text-xl flex-col flex-grow pt-10 space-y-4">Submissions Closed</div>;
   }
 
   return (
