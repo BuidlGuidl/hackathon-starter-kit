@@ -35,6 +35,26 @@ yarn start
 
 Visit your app on: `http://localhost:3000`.
 
+## Enabling Submissions and Voting
+
+Submission and Voting processes are disabled by default.
+
+To enable the features, you need to set the following environment variables:
+
+- `NEXT_PUBLIC_SUBMISSIONS_ENABLED`: Set to `true` to enable submissions
+- `NEXT_PUBLIC_VOTING_ENABLED`: Set to `true` to enable voting
+
+You can set these variables in your `.env.local` file for local development:
+
+```
+NEXT_PUBLIC_SUBMISSIONS_ENABLED=true
+NEXT_PUBLIC_VOTING_ENABLED=true
+```
+
+For production, set these variables in your hosting provider's environment configuration.
+
+If you want to change this default behavior, you can modify the logic in your scaffold config file located at `packages/nextjs/scaffold.config.ts`. Look for the `submissionsEnabled` and `votingEnabled` properties in the `scaffoldConfig` object.
+
 ## Database (dev info)
 
 We are using Drizzle with Postgres. You can run `drizzle-kit` from the root with `yarn drizzle-kit`

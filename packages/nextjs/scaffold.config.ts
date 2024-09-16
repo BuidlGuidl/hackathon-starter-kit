@@ -36,10 +36,10 @@ const scaffoldConfig = {
   onlyLocalBurnerWallet: true,
 
   // Enable submissions
-  submissionsEnabled: false,
+  submissionsEnabled: process.env.NEXT_PUBLIC_SUBMISSIONS_ENABLED === "true" || false,
 
   // Enable voting on submissions
-  votingEnabled: false,
+  votingEnabled: process.env.NEXT_PUBLIC_VOTING_ENABLED === "true" || false,
 
   // Score threshold for winners and runners up
   winnersThreshold: 7,
