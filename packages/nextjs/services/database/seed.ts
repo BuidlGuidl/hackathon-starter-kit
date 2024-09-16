@@ -29,6 +29,7 @@ async function seed() {
     .values([
       { id: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", role: "admin" },
       { id: "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC", role: "user" },
+      { id: "0x08fc7400ba37fc4ee1bf73bed5ddcb5db6a1036a", role: "voter" },
     ])
     .execute();
 
