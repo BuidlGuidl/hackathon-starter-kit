@@ -7,7 +7,7 @@ export async function POST(req: NextRequest, { params }: { params: { submissionI
   try {
     const session = await getServerSession(authOptions);
 
-    if (session?.user.role !== "admin") {
+    if (session?.user.role !== "admin" && session?.user.role !== "voter") {
       return NextResponse.json({ error: "Only admins can add comments" }, { status: 401 });
     }
     const { submissionId } = params;
