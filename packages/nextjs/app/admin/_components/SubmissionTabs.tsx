@@ -87,9 +87,15 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
         />
         <div role="tabpanel" className="tab-content py-6">
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {voted.map(submission => (
-              <SubmissionCard key={submission.id} submission={submission} tabName="voted" />
-            ))}
+            {voted.length === 0 ? (
+              <div role="alert" className="alert col-span-2">
+                <span>You have not voted on any submissions yet.</span>
+              </div>
+            ) : (
+              voted
+                .sort((a, b) => b.avgScore - a.avgScore)
+                .map(submission => <SubmissionCard key={submission.id} submission={submission} tabName="voted" />)
+            )}
           </div>
         </div>
 
@@ -105,11 +111,15 @@ export const SubmissionTabs = ({ submissions }: { submissions: Submission[] }) =
             />
             <div role="tabpanel" className="tab-content py-6">
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {all
-                  .sort((a, b) => b.avgScore - a.avgScore)
-                  .map(submission => (
-                    <SubmissionCard key={submission.id} submission={submission} tabName="all" />
-                  ))}
+                {all.length === 0 ? (
+                  <div role="alert" className="alert col-span-2">
+                    <span>There are no submissions yet.</span>
+                  </div>
+                ) : (
+                  all
+                    .sort((a, b) => b.avgScore - a.avgScore)
+                    .map(submission => <SubmissionCard key={submission.id} submission={submission} tabName="all" />)
+                )}
               </div>
             </div>
           </>
