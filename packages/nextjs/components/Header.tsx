@@ -3,7 +3,14 @@
 import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Bars3Icon, ChatBubbleLeftEllipsisIcon, DocumentTextIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+import { useAccount } from "wagmi";
+import {
+  Bars3Icon,
+  ChatBubbleLeftEllipsisIcon,
+  ClipboardDocumentListIcon,
+  DocumentTextIcon,
+  LockClosedIcon,
+} from "@heroicons/react/24/outline";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import { useAuthSession } from "~~/hooks/useAuthSession";
@@ -14,26 +21,38 @@ type HeaderMenuLink = {
   icon?: React.ReactNode;
 };
 
-export const menuLinks: HeaderMenuLink[] = [
-  {
-    label: "Submissions",
-    href: "/submissions",
-    icon: <DocumentTextIcon className="h-4 w-4" />,
-  },
-  {
-    label: "Admin",
-    href: "/admin",
-    icon: <LockClosedIcon className="h-4 w-4" />,
-  },
-  {
-    label: "Join Telegram",
-    href: "https://t.me/+jgKFHjb9B_cyNmMx",
-    icon: <ChatBubbleLeftEllipsisIcon className="h-4 w-4" />,
-  },
-];
-
 export const HeaderMenuLinks = () => {
   const { isAdmin } = useAuthSession();
+  const { address: connectedAddress } = useAccount();
+
+  const menuLinks: HeaderMenuLink[] = [
+    {
+      label: "Submissions",
+      href: "/submissions",
+      icon: <DocumentTextIcon className="h-4 w-4" />,
+    },
+  ];
+
+  if (connectedAddress) {
+    menuLinks.push({
+      label: "My Submissions",
+      href: "/my-submissions",
+      icon: <ClipboardDocumentListIcon className="h-4 w-4" />,
+    });
+  }
+
+  menuLinks.concat([
+    {
+      label: "Admin",
+      href: "/admin",
+      icon: <LockClosedIcon className="h-4 w-4" />,
+    },
+    {
+      label: "Join Telegram",
+      href: "https://t.me/+jgKFHjb9B_cyNmMx",
+      icon: <ChatBubbleLeftEllipsisIcon className="h-4 w-4" />,
+    },
+  ]);
 
   return (
     <>
@@ -49,7 +68,7 @@ export const HeaderMenuLinks = () => {
                 href={href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-lg gap-2"
+                className="hover:underline flex items-center active:!text-neutral py-1.5 px-3 text-lg gap-2 whitespace-nowrap"
               >
                 {icon}
                 <span>{label}</span>
@@ -58,7 +77,7 @@ export const HeaderMenuLinks = () => {
               <Link
                 href={href}
                 passHref
-                className="hover:underline flex items-center align-center active:!text-neutral py-1.5 px-3 text-lg gap-2"
+                className="hover:underline flex items-center active:!text-neutral py-1.5 px-3 text-lg gap-2 whitespace-nowrap"
               >
                 {icon}
                 <span>{label}</span>

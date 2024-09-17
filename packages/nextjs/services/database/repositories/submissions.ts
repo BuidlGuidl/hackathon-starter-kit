@@ -37,3 +37,11 @@ export async function clearEligible(submissionId: number) {
     .set({ eligible: null, eligibleAdmin: null, eligibleTimestamp: null })
     .where(eq(submissions.id, submissionId));
 }
+
+export async function getSubmissionsByBuilder(builderId: string) {
+  return await db.query.submissions.findMany({
+    where: eq(submissions.builder, builderId),
+    with: { comments: true, votes: true },
+    orderBy: [desc(submissions.id)],
+  });
+}
