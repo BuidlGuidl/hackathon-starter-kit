@@ -1,7 +1,14 @@
 import Form from "./_component/Form";
 import { NextPage } from "next";
+import scaffoldConfig from "~~/scaffold.config";
 
 const Submit: NextPage = () => {
+  const { submissionsEnabled } = scaffoldConfig;
+
+  if (!submissionsEnabled) {
+    return <div className="flex items-center text-xl flex-col flex-grow pt-10 space-y-4">Submissions Closed</div>;
+  }
+
   return (
     <div className="flex flex-col md:flex-row m-6 md:m-10 border border-black">
       <div className="w-[100%] md:w-5/12 border-r border-black p-4 md:p-12">
