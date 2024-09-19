@@ -72,6 +72,7 @@ export const authOptions: AuthOptions = {
     async session({ session, token }: { session: Session; token: JWT }) {
       session.user.address = token.sub;
       session.user.role = token.role;
+      session.user.voter = token.role ? ["admin", "voter"].includes(token.role) : false;
       return session;
     },
   },

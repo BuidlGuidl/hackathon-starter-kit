@@ -15,7 +15,7 @@ const Admin: NextPage = async () => {
     );
   }
 
-  if (session?.user?.role !== "admin" && session?.user?.role !== "voter") {
+  if (!session?.user?.voter) {
     return <div className="flex items-center text-xl flex-col flex-grow pt-10 space-y-4">Access denied</div>;
   }
 
