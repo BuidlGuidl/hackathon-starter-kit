@@ -9,8 +9,8 @@ export async function POST(req: NextRequest, { params }: { params: { submissionI
   try {
     const session = await getServerSession(authOptions);
 
-    if (session?.user.role !== "admin") {
-      return NextResponse.json({ error: "Only admins can vote" }, { status: 401 });
+    if (!session?.user.voter) {
+      return NextResponse.json({ error: "Only admins and voters can vote" }, { status: 401 });
     }
 
     if (!votingEnabled) {

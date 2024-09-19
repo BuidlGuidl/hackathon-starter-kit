@@ -55,6 +55,8 @@ export const SubmissionCard = ({ submission, tabName }: { submission: Submission
 
   const telegramUser = submission.telegram?.replace("@", "");
 
+  const showResults = tabName === "all";
+
   return (
     <div key={submission.id} className="card bg-base-200 text-secondary-content border border-gray-300 rounded-none">
       <SubmissionEligible submission={submission} />
@@ -124,10 +126,16 @@ export const SubmissionCard = ({ submission, tabName }: { submission: Submission
         </div>
 
         <div className="mt-3 flex items-center justify-between">
-          <div className="badge badge-accent flex flex-col shrink-0 p-8 border border-accent-content">
-            <div className="text-2xl font-bold">{scoreAvg}</div>
-            <div>{submission.votes.length} votes</div>
-          </div>
+          {showResults ? (
+            <div className="badge badge-accent flex flex-col shrink-0 p-8 border border-accent-content">
+              <div className="text-2xl font-bold">{scoreAvg}</div>
+              <div>{submission.votes.length} votes</div>
+            </div>
+          ) : (
+            <div className="badge badge-accent flex flex-col shrink-0 p-8 border border-accent-content">
+              <div>{submission.votes.length} votes</div>
+            </div>
+          )}
           <SubmissionComments submission={submission} />
         </div>
       </div>
