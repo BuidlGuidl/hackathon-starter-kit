@@ -1,4 +1,6 @@
-## Extensions Hackathon Website
+## Extensions Hackathon Platform
+
+Hackathon Platform used by the BuidlGuidl to host the Extension Hackathon on AUG 20th - SEP 2nd, 2024.
 
 ## Requirements
 
