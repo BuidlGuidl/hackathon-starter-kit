@@ -1,4 +1,6 @@
-## Extensions Hackathon Website
+## Hackathon Starter Kit
+
+This starter kit provides a fully working hackathon website that you can use to run your own hackathon. It's built with [Scaffold-ETH 2](https://github.com/scaffold-eth/scaffold-eth-2).
 
 ## Requirements
 
