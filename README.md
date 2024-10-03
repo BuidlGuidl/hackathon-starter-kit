@@ -2,6 +2,8 @@
 
 Hackathon Platform used by the BuidlGuidl to host the Extension Hackathon on AUG 20th - SEP 2nd, 2024.
 
+https://extensions.buidlguidl.com/
+
 ## Requirements
 
 Before you begin, you need to install the following tools:
